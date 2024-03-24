@@ -1,0 +1,32 @@
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'DevOps/Terraform/**'
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.14.9
+
+    - name: Terraform Init
+      run: terraform init DevOps/Terraform/
+
+    - name: Terraform Validate
+      run: terraform validate DevOps/Terraform/
+
+    # Ajoutez d'autres commandes Terraform si nécessaire, par exemple :
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve DevOps/Terraform/

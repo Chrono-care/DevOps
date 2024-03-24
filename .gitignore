@@ -1,0 +1,9 @@
+# General
+.DS_Store
+*.log
+*.env
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
