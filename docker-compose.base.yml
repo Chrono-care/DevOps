@@ -1,0 +1,39 @@
+services:
+  front:
+    container_name: "front-app-${NODE_ENV}"
+    ports:
+      - "${FRONT_PORT}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    networks:
+      - devops-network
+
+  back:
+    container_name: "back-app-${NODE_ENV}"
+    ports:
+      - "${BACK_PORT}:4000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    env_file:
+      - ".env.${NODE_ENV}"
+    networks:
+      - devops-network
+
+  postgres:
+    image: postgres:13
+    container_name: "devops-postgres-${NODE_ENV}"
+    volumes:
+      - "${POSTGRES_DATA}:/var/lib/postgresql/data"
+    env_file:
+      - ".env.${NODE_ENV}"
+    networks:
+      - devops-network
+
+volumes:
+  postgres-dev-data:
+  postgres-prod-data:
+
+networks:
+  devops-network:
+    name: devops-network
+    external: true

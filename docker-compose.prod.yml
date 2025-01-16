@@ -1,0 +1,6 @@
+services:
+  front:
+    image: "${DOCKER_USERNAME}/front-prod:latest"
+
+  back:
+    image: "${DOCKER_USERNAME}/back-prod:latest"

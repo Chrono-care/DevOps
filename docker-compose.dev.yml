@@ -1,0 +1,16 @@
+services:
+  front:
+    build:
+      context: ./../Front
+      dockerfile: .docker/Dockerfile
+      target: ${NODE_ENV}
+    volumes:
+      - ./../Front/.:/app:delegated
+
+  back:
+    build:
+      context: ./../Backend
+      dockerfile: .docker/Dockerfile
+      target: ${NODE_ENV}
+    volumes:
+      - ./../Backend/:/app:delegated
