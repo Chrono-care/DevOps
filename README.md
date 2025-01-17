@@ -50,11 +50,3 @@ make start-dev
 ```bash
 make down
 ```
-
-## Contribution
-
-1. Forker le dépôt.
-2. Créer une branche : `git checkout -b feature/NouvelleFonctionnalite`
-3. Commit tes changements : `git commit -m "Ajout d'une nouvelle fonctionnalité"`
-4. Push vers la branche : `git push origin feature/NouvelleFonctionnalite`
-5. Ouvre une Pull Request.
