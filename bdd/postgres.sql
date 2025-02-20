@@ -9,13 +9,13 @@ DROP TABLE IF EXISTS "article" CASCADE;
 DROP TABLE IF EXISTS "disease" CASCADE;
 DROP TABLE IF EXISTS "group" CASCADE;
 DROP TABLE IF EXISTS "right" CASCADE;
-DROP TABLE IF EXISTS "user" CASCADE;
+DROP TABLE IF EXISTS "account" CASCADE;
 
 -- ===================================
--- Table: user
+-- Table: account
 -- ===================================
-CREATE TABLE "user" (
-    "uuid"             uuid         PRIMARY KEY,
+CREATE TABLE "account" (
+    "uuid"             uuid         PRIMARY KEY DEFAULT gen_random_uuid(),
     "firstname"        VARCHAR(100) NOT NULL,
     "lastname"         VARCHAR(100) NOT NULL,
     "email"            VARCHAR(255) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE "thread" (
     "modification_date" TIMESTAMP,
     "author_fk"         uuid,
     "forum_fk"          INT,
-    CONSTRAINT fk_thread_author FOREIGN KEY ("author_fk") REFERENCES "user"("uuid")   ON DELETE SET NULL,
+    CONSTRAINT fk_thread_author FOREIGN KEY ("author_fk") REFERENCES "account"("uuid")   ON DELETE SET NULL,
     CONSTRAINT fk_thread_forum  FOREIGN KEY ("forum_fk")  REFERENCES "forum"("id")    ON DELETE CASCADE
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE "post" (
     "author_fk"         uuid,
     "thread_fk"         INT,
     "response_to_fk"    INT,
-    CONSTRAINT fk_post_author    FOREIGN KEY ("author_fk")      REFERENCES "user"("uuid")   ON DELETE SET NULL,
+    CONSTRAINT fk_post_author    FOREIGN KEY ("author_fk")      REFERENCES "account"("uuid")   ON DELETE SET NULL,
     CONSTRAINT fk_post_thread    FOREIGN KEY ("thread_fk")      REFERENCES "thread"("id")   ON DELETE CASCADE,
     CONSTRAINT fk_post_response  FOREIGN KEY ("response_to_fk") REFERENCES "post"("id")     ON DELETE CASCADE
 );
@@ -76,10 +76,10 @@ CREATE TABLE "post" (
 -- ===================================
 CREATE TABLE "banhammer" (
     "id"       INT    PRIMARY KEY,
-    "user_fk"  uuid,
+    "account_fk"  uuid,
     "forum_fk" INT,
     "bantime"  VARCHAR(255),   -- ou TIMESTAMP/DATE/INT selon vos données
-    CONSTRAINT fk_ban_user   FOREIGN KEY ("user_fk")  REFERENCES "user"("uuid")  ON DELETE CASCADE,
+    CONSTRAINT fk_ban_user   FOREIGN KEY ("account_fk")  REFERENCES "account"("uuid")  ON DELETE CASCADE,
     CONSTRAINT fk_ban_forum  FOREIGN KEY ("forum_fk") REFERENCES "forum"("id")   ON DELETE CASCADE
 );
 
@@ -90,7 +90,7 @@ CREATE TABLE "conversation" (
     "id"            INT PRIMARY KEY,
     "creation_date" TIMESTAMP,
     "author_fk"     uuid,
-    CONSTRAINT fk_conversation_author FOREIGN KEY ("author_fk") REFERENCES "user"("uuid") ON DELETE SET NULL
+    CONSTRAINT fk_conversation_author FOREIGN KEY ("author_fk") REFERENCES "account"("uuid") ON DELETE SET NULL
 );
 
 -- ===================================
@@ -104,8 +104,8 @@ CREATE TABLE "privatemessage" (
     "author_fk"        uuid,
     "recipient_fk"     uuid,
     "conversation_fk"  INT,
-    CONSTRAINT fk_pm_author       FOREIGN KEY ("author_fk")       REFERENCES "user"("uuid")          ON DELETE SET NULL,
-    CONSTRAINT fk_pm_recipient    FOREIGN KEY ("recipient_fk")    REFERENCES "user"("uuid")          ON DELETE CASCADE,
+    CONSTRAINT fk_pm_author       FOREIGN KEY ("author_fk")       REFERENCES "account"("uuid")          ON DELETE SET NULL,
+    CONSTRAINT fk_pm_recipient    FOREIGN KEY ("recipient_fk")    REFERENCES "account"("uuid")          ON DELETE CASCADE,
     CONSTRAINT fk_pm_conversation FOREIGN KEY ("conversation_fk") REFERENCES "conversation"("id")     ON DELETE CASCADE
 );
 
@@ -161,9 +161,9 @@ CREATE TABLE "right" (
 BEGIN;
 
 -- ======================================
--- Exemple d'insertion dans la table "user"
+-- Exemple d'insertion dans la table "account"
 -- ======================================
-INSERT INTO "user" (uuid, firstname, lastname, email, password, phone, karma, global_bantime, validated) VALUES
+INSERT INTO "account" (uuid, firstname, lastname, email, password, phone, karma, global_bantime, validated) VALUES
 ('00000000-aaaa-bbbb-cccc-000000000001', 'John', 'Doe', 'john.doe@example.com', 'hashed_password_john', '+330123456789', 10, '2025-01-01 10:00:00', TRUE),
 ('00000000-aaaa-bbbb-cccc-000000000002', 'Jane', 'Smith', 'jane.smith@example.com', 'hashed_password_jane', '+330987654321', 5,  '2025-01-02 11:30:00', FALSE);
 
@@ -192,7 +192,7 @@ INSERT INTO "post" (id, content, ratio, creation_date, modification_date, author
 -- ======================================
 -- Exemple d'insertion dans la table "banhammer"
 -- ======================================
-INSERT INTO "banhammer" (id, user_fk, forum_fk, bantime) VALUES
+INSERT INTO "banhammer" (id, account_fk, forum_fk, bantime) VALUES
 (2000, '00000000-aaaa-bbbb-cccc-000000000002', 1, '2025-01-03 00:00:00'),
 (2001, '00000000-aaaa-bbbb-cccc-000000000001', 2, '2025-01-08 00:00:00');
 
