@@ -24,6 +24,7 @@ services:
     container_name: "devops-postgres-${NODE_ENV}"
     volumes:
       - "${POSTGRES_DATA}:/var/lib/postgresql/data"
+      - ./bdd:/docker-entrypoint-initdb.d
     env_file:
       - ".env.${NODE_ENV}"
     networks:
