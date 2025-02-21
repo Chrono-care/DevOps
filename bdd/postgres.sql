@@ -30,10 +30,11 @@ CREATE TABLE "account" (
 -- Table: forum
 -- ===================================
 CREATE TABLE "forum" (
-    "id"            INT          PRIMARY KEY,
+    "id"            SERIAL          PRIMARY KEY,
     "title"         VARCHAR(255) NOT NULL,
     "description"   TEXT,
     "img_url"       VARCHAR(255),
+    "is_archived"   BOOLEAN NOT NULL DEFAULT FALSE,
     "creation_date" TIMESTAMP    -- ou VARCHAR(255), selon vos données
 );
 
@@ -41,7 +42,7 @@ CREATE TABLE "forum" (
 -- Table: thread
 -- ===================================
 CREATE TABLE "thread" (
-    "id"                INT          PRIMARY KEY,
+    "id"                SERIAL          PRIMARY KEY,
     "title"             VARCHAR(255) NOT NULL,
     "content"           TEXT         NOT NULL,
     "img_url"           VARCHAR(255),
@@ -58,7 +59,7 @@ CREATE TABLE "thread" (
 -- Table: post
 -- ===================================
 CREATE TABLE "post" (
-    "id"                INT          PRIMARY KEY,
+    "id"                SERIAL          PRIMARY KEY,
     "content"           TEXT         NOT NULL,
     "ratio"             INT          DEFAULT 0,
     "creation_date"     TIMESTAMP,
@@ -75,7 +76,7 @@ CREATE TABLE "post" (
 -- Table: banhammer
 -- ===================================
 CREATE TABLE "banhammer" (
-    "id"       INT    PRIMARY KEY,
+    "id"       SERIAL    PRIMARY KEY,
     "account_fk"  uuid,
     "forum_fk" INT,
     "bantime"  VARCHAR(255),   -- ou TIMESTAMP/DATE/INT selon vos données
@@ -87,7 +88,7 @@ CREATE TABLE "banhammer" (
 -- Table: conversation
 -- ===================================
 CREATE TABLE "conversation" (
-    "id"            INT PRIMARY KEY,
+    "id"            SERIAL PRIMARY KEY,
     "creation_date" TIMESTAMP,
     "author_fk"     uuid,
     CONSTRAINT fk_conversation_author FOREIGN KEY ("author_fk") REFERENCES "account"("uuid") ON DELETE SET NULL
@@ -113,7 +114,7 @@ CREATE TABLE "privatemessage" (
 -- Table: article
 -- ===================================
 CREATE TABLE "article" (
-    "id"             INT          PRIMARY KEY,
+    "id"             SERIAL          PRIMARY KEY,
     "title"          VARCHAR(255) NOT NULL,
     "content"        TEXT,
     "ratio"          INT          DEFAULT 0,
@@ -126,7 +127,7 @@ CREATE TABLE "article" (
 -- Table: disease
 -- ===================================
 CREATE TABLE "disease" (
-    "id"                INT          PRIMARY KEY,
+    "id"                SERIAL          PRIMARY KEY,
     "name"              VARCHAR(255) NOT NULL,
     "description"       TEXT,
     "symptomes"         TEXT,
@@ -138,7 +139,7 @@ CREATE TABLE "disease" (
 -- Table: group
 -- ===================================
 CREATE TABLE "group" (
-    "id"       INT           PRIMARY KEY,
+    "id"       SERIAL           PRIMARY KEY,
     "name"     VARCHAR(255),
     "forum_fk" INT,
     CONSTRAINT fk_group_forum FOREIGN KEY ("forum_fk") REFERENCES "forum"("id") ON DELETE CASCADE
@@ -148,7 +149,7 @@ CREATE TABLE "group" (
 -- Table: right
 -- ===================================
 CREATE TABLE "right" (
-    "id"   INT           PRIMARY KEY,
+    "id"   SERIAL           PRIMARY KEY,
     "name" VARCHAR(255)
 );
 
