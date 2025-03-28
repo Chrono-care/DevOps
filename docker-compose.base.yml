@@ -20,7 +20,7 @@ services:
       - devops-network
 
   postgres:
-    image: postgres:13
+    image: postgres:17
     container_name: "devops-postgres-${NODE_ENV}"
     volumes:
       - "${POSTGRES_DATA}:/var/lib/postgresql/data"
@@ -29,9 +29,25 @@ services:
     networks:
       - devops-network
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_MAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    user: "5050:5050"
+    networks:
+      - devops-network
+
 volumes:
   postgres-dev-data:
   postgres-prod-data:
+  pgadmin-data:
 
 networks:
   devops-network:
