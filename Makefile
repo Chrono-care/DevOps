@@ -16,7 +16,7 @@ create-network:
 start-dev: create-network
 	@if [ ! -d "$(PARENT_DIR)Front" ]; then git clone $(FRONT_REPO) $(PARENT_DIR)Front; fi
 	@if [ ! -d "$(PARENT_DIR)Backend" ]; then git clone $(BACK_REPO) $(PARENT_DIR)Backend; fi
-	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_DEV) up -d --build --force-recreate
+	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_DEV) up --build -d --force-recreate
 
 start-prod: create-network
 	$(COMMAND) --env-file .env.prod -f $(DOCKER_COMPOSE_FILE_PROD) up -d --build
@@ -24,10 +24,6 @@ start-prod: create-network
 restart: create-network
 	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_DEV) restart
 	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_PROD) restart
-
-stop:
-	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_DEV) stop
-	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_PROD) stop
 
 down:
 	$(COMMAND) --env-file .env.dev -f $(DOCKER_COMPOSE_FILE_DEV) down
@@ -48,3 +44,15 @@ start-dev-logs: create-network
 
 start-prod-logs: create-network
 	$(MAKE) start-prod && $(MAKE) logs-prod
+
+# dump-database:
+	# docker exec -it devops-postgres-dev pg_dump -c -U
+
+drop-dev-database: down
+	docker volume rm devops-postgres-dev
+
+drop-prod-database: down
+	docker volume rm devops-postgres-prod
+
+log-database: 
+	docker logs devops-postgres-dev
