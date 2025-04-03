@@ -16,71 +16,72 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE ONLY public.vote_reply DROP CONSTRAINT vote_reply_author_uuid_fkey;
-ALTER TABLE ONLY public.thread DROP CONSTRAINT fk_thread_forum;
-ALTER TABLE ONLY public.thread DROP CONSTRAINT fk_thread_author;
-ALTER TABLE ONLY public.reply DROP CONSTRAINT fk_post_thread;
-ALTER TABLE ONLY public.reply DROP CONSTRAINT fk_post_response;
-ALTER TABLE ONLY public.reply DROP CONSTRAINT fk_post_author;
-ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT fk_pm_recipient;
-ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT fk_pm_conversation;
-ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT fk_pm_author;
-ALTER TABLE ONLY public."group" DROP CONSTRAINT fk_group_forum;
-ALTER TABLE ONLY public.conversation DROP CONSTRAINT fk_conversation_author;
-ALTER TABLE ONLY public.banhammer DROP CONSTRAINT fk_ban_user;
-ALTER TABLE ONLY public.banhammer DROP CONSTRAINT fk_ban_forum;
-ALTER TABLE ONLY public.thread DROP CONSTRAINT thread_pkey;
-ALTER TABLE ONLY public."right" DROP CONSTRAINT right_pkey;
-ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT privatemessage_pkey;
-ALTER TABLE ONLY public.reply DROP CONSTRAINT post_pkey;
-ALTER TABLE ONLY public."group" DROP CONSTRAINT group_pkey;
-ALTER TABLE ONLY public.forum DROP CONSTRAINT forum_pkey;
-ALTER TABLE ONLY public.disease DROP CONSTRAINT disease_pkey;
-ALTER TABLE ONLY public.conversation DROP CONSTRAINT conversation_pkey;
-ALTER TABLE ONLY public.banhammer DROP CONSTRAINT banhammer_pkey;
-ALTER TABLE ONLY public.article DROP CONSTRAINT article_pkey;
-ALTER TABLE ONLY public.account DROP CONSTRAINT account_pkey;
-ALTER TABLE public.vote_thread ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.vote_reply ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.thread ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.subscribe ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public."right" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.reply ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.privatemessage ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public."group" ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.forum ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.disease ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.conversation ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.banhammer ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.article ALTER COLUMN id DROP DEFAULT;
-DROP SEQUENCE public.vote_thread_id_seq;
-DROP TABLE public.vote_thread;
-DROP SEQUENCE public.vote_reply_id_seq;
-DROP TABLE public.vote_reply;
-DROP SEQUENCE public.thread_id_seq;
-DROP TABLE public.thread;
-DROP SEQUENCE public.subscribe_id_seq;
-DROP TABLE public.subscribe;
-DROP SEQUENCE public.right_id_seq;
-DROP TABLE public."right";
-DROP SEQUENCE public.privatemessage_id_seq;
-DROP TABLE public.privatemessage;
-DROP SEQUENCE public.post_id_seq;
-DROP TABLE public.reply;
-DROP SEQUENCE public.group_id_seq;
-DROP TABLE public."group";
-DROP SEQUENCE public.forum_id_seq;
-DROP TABLE public.forum;
-DROP SEQUENCE public.disease_id_seq;
-DROP TABLE public.disease;
-DROP SEQUENCE public.conversation_id_seq;
-DROP TABLE public.conversation;
-DROP SEQUENCE public.banhammer_id_seq;
-DROP TABLE public.banhammer;
-DROP SEQUENCE public.article_id_seq;
-DROP TABLE public.article;
-DROP TABLE public.account;
-DROP EXTENSION "uuid-ossp";
+ALTER TABLE IF EXISTS ONLY public.vote_reply DROP CONSTRAINT IF EXISTS vote_reply_reply_fk_fkey;
+ALTER TABLE IF EXISTS ONLY public.vote_reply DROP CONSTRAINT IF EXISTS vote_reply_author_fk_fkey;
+ALTER TABLE IF EXISTS ONLY public.thread DROP CONSTRAINT IF EXISTS fk_thread_forum;
+ALTER TABLE IF EXISTS ONLY public.thread DROP CONSTRAINT IF EXISTS fk_thread_author;
+ALTER TABLE IF EXISTS ONLY public.reply DROP CONSTRAINT IF EXISTS fk_post_thread;
+ALTER TABLE IF EXISTS ONLY public.reply DROP CONSTRAINT IF EXISTS fk_post_response;
+ALTER TABLE IF EXISTS ONLY public.reply DROP CONSTRAINT IF EXISTS fk_post_author;
+ALTER TABLE IF EXISTS ONLY public.privatemessage DROP CONSTRAINT IF EXISTS fk_pm_recipient;
+ALTER TABLE IF EXISTS ONLY public.privatemessage DROP CONSTRAINT IF EXISTS fk_pm_conversation;
+ALTER TABLE IF EXISTS ONLY public.privatemessage DROP CONSTRAINT IF EXISTS fk_pm_author;
+ALTER TABLE IF EXISTS ONLY public."group" DROP CONSTRAINT IF EXISTS fk_group_forum;
+ALTER TABLE IF EXISTS ONLY public.conversation DROP CONSTRAINT IF EXISTS fk_conversation_author;
+ALTER TABLE IF EXISTS ONLY public.banhammer DROP CONSTRAINT IF EXISTS fk_ban_user;
+ALTER TABLE IF EXISTS ONLY public.banhammer DROP CONSTRAINT IF EXISTS fk_ban_forum;
+ALTER TABLE IF EXISTS ONLY public.thread DROP CONSTRAINT IF EXISTS thread_pkey;
+ALTER TABLE IF EXISTS ONLY public."right" DROP CONSTRAINT IF EXISTS right_pkey;
+ALTER TABLE IF EXISTS ONLY public.privatemessage DROP CONSTRAINT IF EXISTS privatemessage_pkey;
+ALTER TABLE IF EXISTS ONLY public.reply DROP CONSTRAINT IF EXISTS post_pkey;
+ALTER TABLE IF EXISTS ONLY public."group" DROP CONSTRAINT IF EXISTS group_pkey;
+ALTER TABLE IF EXISTS ONLY public.forum DROP CONSTRAINT IF EXISTS forum_pkey;
+ALTER TABLE IF EXISTS ONLY public.disease DROP CONSTRAINT IF EXISTS disease_pkey;
+ALTER TABLE IF EXISTS ONLY public.conversation DROP CONSTRAINT IF EXISTS conversation_pkey;
+ALTER TABLE IF EXISTS ONLY public.banhammer DROP CONSTRAINT IF EXISTS banhammer_pkey;
+ALTER TABLE IF EXISTS ONLY public.article DROP CONSTRAINT IF EXISTS article_pkey;
+ALTER TABLE IF EXISTS ONLY public.account DROP CONSTRAINT IF EXISTS account_pkey;
+ALTER TABLE IF EXISTS public.vote_thread ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.vote_reply ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.thread ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.subscribe ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public."right" ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.reply ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.privatemessage ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public."group" ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.forum ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.disease ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.conversation ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.banhammer ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.article ALTER COLUMN id DROP DEFAULT;
+DROP SEQUENCE IF EXISTS public.vote_thread_id_seq;
+DROP TABLE IF EXISTS public.vote_thread;
+DROP SEQUENCE IF EXISTS public.vote_reply_id_seq;
+DROP TABLE IF EXISTS public.vote_reply;
+DROP SEQUENCE IF EXISTS public.thread_id_seq;
+DROP TABLE IF EXISTS public.thread;
+DROP SEQUENCE IF EXISTS public.subscribe_id_seq;
+DROP TABLE IF EXISTS public.subscribe;
+DROP SEQUENCE IF EXISTS public.right_id_seq;
+DROP TABLE IF EXISTS public."right";
+DROP SEQUENCE IF EXISTS public.reply_id_seq;
+DROP TABLE IF EXISTS public.reply;
+DROP SEQUENCE IF EXISTS public.privatemessage_id_seq;
+DROP TABLE IF EXISTS public.privatemessage;
+DROP SEQUENCE IF EXISTS public.group_id_seq;
+DROP TABLE IF EXISTS public."group";
+DROP SEQUENCE IF EXISTS public.forum_id_seq;
+DROP TABLE IF EXISTS public.forum;
+DROP SEQUENCE IF EXISTS public.disease_id_seq;
+DROP TABLE IF EXISTS public.disease;
+DROP SEQUENCE IF EXISTS public.conversation_id_seq;
+DROP TABLE IF EXISTS public.conversation;
+DROP SEQUENCE IF EXISTS public.banhammer_id_seq;
+DROP TABLE IF EXISTS public.banhammer;
+DROP SEQUENCE IF EXISTS public.article_id_seq;
+DROP TABLE IF EXISTS public.article;
+DROP TABLE IF EXISTS public.account;
+DROP EXTENSION IF EXISTS "uuid-ossp";
 --
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
@@ -340,46 +341,6 @@ ALTER SEQUENCE public.group_id_seq OWNED BY public."group".id;
 
 
 --
--- Name: reply; Type: TABLE; Schema: public; Owner: nicolasp
---
-
-CREATE TABLE public.reply (
-    id integer NOT NULL,
-    content text NOT NULL,
-    ratio integer DEFAULT 0,
-    creation_date timestamp without time zone,
-    modification_date timestamp without time zone,
-    author_uuid uuid,
-    thread_fk integer,
-    response_to_fk integer
-);
-
-
-ALTER TABLE public.reply OWNER TO nicolasp;
-
---
--- Name: post_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
---
-
-CREATE SEQUENCE public.post_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.post_id_seq OWNER TO nicolasp;
-
---
--- Name: post_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
---
-
-ALTER SEQUENCE public.post_id_seq OWNED BY public.reply.id;
-
-
---
 -- Name: privatemessage; Type: TABLE; Schema: public; Owner: nicolasp
 --
 
@@ -416,6 +377,46 @@ ALTER TABLE public.privatemessage_id_seq OWNER TO nicolasp;
 --
 
 ALTER SEQUENCE public.privatemessage_id_seq OWNED BY public.privatemessage.id;
+
+
+--
+-- Name: reply; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.reply (
+    id integer NOT NULL,
+    content text NOT NULL,
+    ratio integer DEFAULT 0,
+    creation_date timestamp without time zone,
+    modification_date timestamp without time zone,
+    author_uuid uuid,
+    thread_fk integer,
+    response_to_fk integer
+);
+
+
+ALTER TABLE public.reply OWNER TO nicolasp;
+
+--
+-- Name: reply_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.reply_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.reply_id_seq OWNER TO nicolasp;
+
+--
+-- Name: reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.reply_id_seq OWNED BY public.reply.id;
 
 
 --
@@ -536,7 +537,7 @@ ALTER SEQUENCE public.thread_id_seq OWNED BY public.thread.id;
 
 CREATE TABLE public.vote_reply (
     id integer NOT NULL,
-    author_uuid uuid NOT NULL,
+    author_fk uuid NOT NULL,
     reply_fk integer NOT NULL,
     creation_date timestamp without time zone DEFAULT now() NOT NULL,
     vote_type boolean NOT NULL
@@ -576,7 +577,7 @@ CREATE TABLE public.vote_thread (
     vote_type boolean NOT NULL,
     creation_date timestamp without time zone DEFAULT now() NOT NULL,
     author_uuid uuid,
-    thread_fk integer
+    thread_i integer
 );
 
 
@@ -657,7 +658,7 @@ ALTER TABLE ONLY public.privatemessage ALTER COLUMN id SET DEFAULT nextval('publ
 -- Name: reply id; Type: DEFAULT; Schema: public; Owner: nicolasp
 --
 
-ALTER TABLE ONLY public.reply ALTER COLUMN id SET DEFAULT nextval('public.post_id_seq'::regclass);
+ALTER TABLE ONLY public.reply ALTER COLUMN id SET DEFAULT nextval('public.reply_id_seq'::regclass);
 
 
 --
@@ -820,7 +821,7 @@ COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_da
 -- Data for Name: vote_reply; Type: TABLE DATA; Schema: public; Owner: nicolasp
 --
 
-COPY public.vote_reply (id, author_uuid, reply_fk, creation_date, vote_type) FROM stdin;
+COPY public.vote_reply (id, author_fk, reply_fk, creation_date, vote_type) FROM stdin;
 \.
 
 
@@ -828,7 +829,7 @@ COPY public.vote_reply (id, author_uuid, reply_fk, creation_date, vote_type) FRO
 -- Data for Name: vote_thread; Type: TABLE DATA; Schema: public; Owner: nicolasp
 --
 
-COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_fk) FROM stdin;
+COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_i) FROM stdin;
 \.
 
 
@@ -875,17 +876,17 @@ SELECT pg_catalog.setval('public.group_id_seq', 1, false);
 
 
 --
--- Name: post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
---
-
-SELECT pg_catalog.setval('public.post_id_seq', 1, false);
-
-
---
 -- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
 --
 
 SELECT pg_catalog.setval('public.privatemessage_id_seq', 1, false);
+
+
+--
+-- Name: reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.reply_id_seq', 1, false);
 
 
 --
@@ -1108,11 +1109,19 @@ ALTER TABLE ONLY public.thread
 
 
 --
--- Name: vote_reply vote_reply_author_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: vote_reply vote_reply_author_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
 --
 
 ALTER TABLE ONLY public.vote_reply
-    ADD CONSTRAINT vote_reply_author_uuid_fkey FOREIGN KEY (author_uuid) REFERENCES public.account(uuid);
+    ADD CONSTRAINT vote_reply_author_fk_fkey FOREIGN KEY (author_fk) REFERENCES public.account(uuid);
+
+
+--
+-- Name: vote_reply vote_reply_reply_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.vote_reply
+    ADD CONSTRAINT vote_reply_reply_fk_fkey FOREIGN KEY (reply_fk) REFERENCES public.reply(id);
 
 
 --
