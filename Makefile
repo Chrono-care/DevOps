@@ -49,10 +49,10 @@ start-prod-logs: create-network
 	# docker exec -it devops-postgres-dev pg_dump -c -U
 
 drop-dev-database: down
-	docker volume rm devops-postgres-dev
+	docker volume rm app_devops-postgres-dev
 
 drop-prod-database: down
-	docker volume rm devops-postgres-prod
+	docker volume rm app_devops-postgres-prod
 
 log-database: 
 	docker logs devops-postgres-dev
