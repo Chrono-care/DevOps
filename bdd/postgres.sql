@@ -101,7 +101,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: account; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: account; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.account (
@@ -117,10 +117,10 @@ CREATE TABLE public.account (
 );
 
 
-ALTER TABLE public.account OWNER TO nicolasp;
+ALTER TABLE public.account OWNER TO chronoadmin;
 
 --
--- Name: article; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: article; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.article (
@@ -134,10 +134,10 @@ CREATE TABLE public.article (
 );
 
 
-ALTER TABLE public.article OWNER TO nicolasp;
+ALTER TABLE public.article OWNER TO chronoadmin;
 
 --
--- Name: article_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: article_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.article_id_seq
@@ -149,17 +149,17 @@ CREATE SEQUENCE public.article_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.article_id_seq OWNER TO nicolasp;
+ALTER TABLE public.article_id_seq OWNER TO chronoadmin;
 
 --
--- Name: article_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: article_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.article_id_seq OWNED BY public.article.id;
 
 
 --
--- Name: banhammer; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: banhammer; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.banhammer (
@@ -170,10 +170,10 @@ CREATE TABLE public.banhammer (
 );
 
 
-ALTER TABLE public.banhammer OWNER TO nicolasp;
+ALTER TABLE public.banhammer OWNER TO chronoadmin;
 
 --
--- Name: banhammer_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: banhammer_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.banhammer_id_seq
@@ -185,17 +185,17 @@ CREATE SEQUENCE public.banhammer_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.banhammer_id_seq OWNER TO nicolasp;
+ALTER TABLE public.banhammer_id_seq OWNER TO chronoadmin;
 
 --
--- Name: banhammer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: banhammer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.banhammer_id_seq OWNED BY public.banhammer.id;
 
 
 --
--- Name: conversation; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: conversation; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.conversation (
@@ -205,10 +205,10 @@ CREATE TABLE public.conversation (
 );
 
 
-ALTER TABLE public.conversation OWNER TO nicolasp;
+ALTER TABLE public.conversation OWNER TO chronoadmin;
 
 --
--- Name: conversation_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: conversation_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.conversation_id_seq
@@ -220,17 +220,17 @@ CREATE SEQUENCE public.conversation_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.conversation_id_seq OWNER TO nicolasp;
+ALTER TABLE public.conversation_id_seq OWNER TO chronoadmin;
 
 --
--- Name: conversation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: conversation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.conversation_id_seq OWNED BY public.conversation.id;
 
 
 --
--- Name: disease; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: disease; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.disease (
@@ -243,10 +243,10 @@ CREATE TABLE public.disease (
 );
 
 
-ALTER TABLE public.disease OWNER TO nicolasp;
+ALTER TABLE public.disease OWNER TO chronoadmin;
 
 --
--- Name: disease_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: disease_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.disease_id_seq
@@ -258,17 +258,17 @@ CREATE SEQUENCE public.disease_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.disease_id_seq OWNER TO nicolasp;
+ALTER TABLE public.disease_id_seq OWNER TO chronoadmin;
 
 --
--- Name: disease_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: disease_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.disease_id_seq OWNED BY public.disease.id;
 
 
 --
--- Name: forum; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: forum; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.forum (
@@ -281,10 +281,10 @@ CREATE TABLE public.forum (
 );
 
 
-ALTER TABLE public.forum OWNER TO nicolasp;
+ALTER TABLE public.forum OWNER TO chronoadmin;
 
 --
--- Name: forum_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: forum_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.forum_id_seq
@@ -296,17 +296,17 @@ CREATE SEQUENCE public.forum_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.forum_id_seq OWNER TO nicolasp;
+ALTER TABLE public.forum_id_seq OWNER TO chronoadmin;
 
 --
--- Name: forum_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: forum_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.forum_id_seq OWNED BY public.forum.id;
 
 
 --
--- Name: group; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: group; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public."group" (
@@ -316,10 +316,10 @@ CREATE TABLE public."group" (
 );
 
 
-ALTER TABLE public."group" OWNER TO nicolasp;
+ALTER TABLE public."group" OWNER TO chronoadmin;
 
 --
--- Name: group_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: group_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.group_id_seq
@@ -331,17 +331,17 @@ CREATE SEQUENCE public.group_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.group_id_seq OWNER TO nicolasp;
+ALTER TABLE public.group_id_seq OWNER TO chronoadmin;
 
 --
--- Name: group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.group_id_seq OWNED BY public."group".id;
 
 
 --
--- Name: privatemessage; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: privatemessage; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.privatemessage (
@@ -355,10 +355,10 @@ CREATE TABLE public.privatemessage (
 );
 
 
-ALTER TABLE public.privatemessage OWNER TO nicolasp;
+ALTER TABLE public.privatemessage OWNER TO chronoadmin;
 
 --
--- Name: privatemessage_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: privatemessage_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.privatemessage_id_seq
@@ -370,17 +370,17 @@ CREATE SEQUENCE public.privatemessage_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.privatemessage_id_seq OWNER TO nicolasp;
+ALTER TABLE public.privatemessage_id_seq OWNER TO chronoadmin;
 
 --
--- Name: privatemessage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: privatemessage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.privatemessage_id_seq OWNED BY public.privatemessage.id;
 
 
 --
--- Name: reply; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: reply; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.reply (
@@ -395,10 +395,10 @@ CREATE TABLE public.reply (
 );
 
 
-ALTER TABLE public.reply OWNER TO nicolasp;
+ALTER TABLE public.reply OWNER TO chronoadmin;
 
 --
--- Name: reply_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: reply_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.reply_id_seq
@@ -410,17 +410,17 @@ CREATE SEQUENCE public.reply_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.reply_id_seq OWNER TO nicolasp;
+ALTER TABLE public.reply_id_seq OWNER TO chronoadmin;
 
 --
--- Name: reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.reply_id_seq OWNED BY public.reply.id;
 
 
 --
--- Name: right; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: right; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public."right" (
@@ -429,10 +429,10 @@ CREATE TABLE public."right" (
 );
 
 
-ALTER TABLE public."right" OWNER TO nicolasp;
+ALTER TABLE public."right" OWNER TO chronoadmin;
 
 --
--- Name: right_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: right_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.right_id_seq
@@ -444,17 +444,17 @@ CREATE SEQUENCE public.right_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.right_id_seq OWNER TO nicolasp;
+ALTER TABLE public.right_id_seq OWNER TO chronoadmin;
 
 --
--- Name: right_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: right_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.right_id_seq OWNED BY public."right".id;
 
 
 --
--- Name: subscribe; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: subscribe; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.subscribe (
@@ -465,10 +465,10 @@ CREATE TABLE public.subscribe (
 );
 
 
-ALTER TABLE public.subscribe OWNER TO nicolasp;
+ALTER TABLE public.subscribe OWNER TO chronoadmin;
 
 --
--- Name: subscribe_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: subscribe_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.subscribe_id_seq
@@ -480,17 +480,17 @@ CREATE SEQUENCE public.subscribe_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.subscribe_id_seq OWNER TO nicolasp;
+ALTER TABLE public.subscribe_id_seq OWNER TO chronoadmin;
 
 --
--- Name: subscribe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: subscribe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.subscribe_id_seq OWNED BY public.subscribe.id;
 
 
 --
--- Name: thread; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: thread; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.thread (
@@ -507,10 +507,10 @@ CREATE TABLE public.thread (
 );
 
 
-ALTER TABLE public.thread OWNER TO nicolasp;
+ALTER TABLE public.thread OWNER TO chronoadmin;
 
 --
--- Name: thread_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: thread_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.thread_id_seq
@@ -522,17 +522,17 @@ CREATE SEQUENCE public.thread_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.thread_id_seq OWNER TO nicolasp;
+ALTER TABLE public.thread_id_seq OWNER TO chronoadmin;
 
 --
--- Name: thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.thread_id_seq OWNED BY public.thread.id;
 
 
 --
--- Name: vote_reply; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: vote_reply; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.vote_reply (
@@ -544,10 +544,10 @@ CREATE TABLE public.vote_reply (
 );
 
 
-ALTER TABLE public.vote_reply OWNER TO nicolasp;
+ALTER TABLE public.vote_reply OWNER TO chronoadmin;
 
 --
--- Name: vote_reply_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: vote_reply_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.vote_reply_id_seq
@@ -559,17 +559,17 @@ CREATE SEQUENCE public.vote_reply_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.vote_reply_id_seq OWNER TO nicolasp;
+ALTER TABLE public.vote_reply_id_seq OWNER TO chronoadmin;
 
 --
--- Name: vote_reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: vote_reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.vote_reply_id_seq OWNED BY public.vote_reply.id;
 
 
 --
--- Name: vote_thread; Type: TABLE; Schema: public; Owner: nicolasp
+-- Name: vote_thread; Type: TABLE; Schema: public; Owner: chronoadmin
 --
 
 CREATE TABLE public.vote_thread (
@@ -581,10 +581,10 @@ CREATE TABLE public.vote_thread (
 );
 
 
-ALTER TABLE public.vote_thread OWNER TO nicolasp;
+ALTER TABLE public.vote_thread OWNER TO chronoadmin;
 
 --
--- Name: vote_thread_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+-- Name: vote_thread_id_seq; Type: SEQUENCE; Schema: public; Owner: chronoadmin
 --
 
 CREATE SEQUENCE public.vote_thread_id_seq
@@ -596,108 +596,108 @@ CREATE SEQUENCE public.vote_thread_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.vote_thread_id_seq OWNER TO nicolasp;
+ALTER TABLE public.vote_thread_id_seq OWNER TO chronoadmin;
 
 --
--- Name: vote_thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+-- Name: vote_thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
 --
 
 ALTER SEQUENCE public.vote_thread_id_seq OWNED BY public.vote_thread.id;
 
 
 --
--- Name: article id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: article id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.article ALTER COLUMN id SET DEFAULT nextval('public.article_id_seq'::regclass);
 
 
 --
--- Name: banhammer id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: banhammer id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.banhammer ALTER COLUMN id SET DEFAULT nextval('public.banhammer_id_seq'::regclass);
 
 
 --
--- Name: conversation id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: conversation id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.conversation ALTER COLUMN id SET DEFAULT nextval('public.conversation_id_seq'::regclass);
 
 
 --
--- Name: disease id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: disease id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.disease ALTER COLUMN id SET DEFAULT nextval('public.disease_id_seq'::regclass);
 
 
 --
--- Name: forum id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: forum id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.forum ALTER COLUMN id SET DEFAULT nextval('public.forum_id_seq'::regclass);
 
 
 --
--- Name: group id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: group id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public."group" ALTER COLUMN id SET DEFAULT nextval('public.group_id_seq'::regclass);
 
 
 --
--- Name: privatemessage id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: privatemessage id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.privatemessage ALTER COLUMN id SET DEFAULT nextval('public.privatemessage_id_seq'::regclass);
 
 
 --
--- Name: reply id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: reply id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.reply ALTER COLUMN id SET DEFAULT nextval('public.reply_id_seq'::regclass);
 
 
 --
--- Name: right id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: right id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public."right" ALTER COLUMN id SET DEFAULT nextval('public.right_id_seq'::regclass);
 
 
 --
--- Name: subscribe id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: subscribe id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.subscribe ALTER COLUMN id SET DEFAULT nextval('public.subscribe_id_seq'::regclass);
 
 
 --
--- Name: thread id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: thread id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.thread ALTER COLUMN id SET DEFAULT nextval('public.thread_id_seq'::regclass);
 
 
 --
--- Name: vote_reply id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: vote_reply id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.vote_reply ALTER COLUMN id SET DEFAULT nextval('public.vote_reply_id_seq'::regclass);
 
 
 --
--- Name: vote_thread id; Type: DEFAULT; Schema: public; Owner: nicolasp
+-- Name: vote_thread id; Type: DEFAULT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.vote_thread ALTER COLUMN id SET DEFAULT nextval('public.vote_thread_id_seq'::regclass);
 
 
 --
--- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.account (uuid, firstname, lastname, email, password, phone, karma, global_bantime, validated) FROM stdin;
@@ -707,7 +707,7 @@ COPY public.account (uuid, firstname, lastname, email, password, phone, karma, g
 
 
 --
--- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.article (id, title, content, ratio, creation_date, source, cover_img_url) FROM stdin;
@@ -717,7 +717,7 @@ COPY public.article (id, title, content, ratio, creation_date, source, cover_img
 
 
 --
--- Data for Name: banhammer; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: banhammer; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.banhammer (id, account_fk, forum_id, bantime) FROM stdin;
@@ -727,7 +727,7 @@ COPY public.banhammer (id, account_fk, forum_id, bantime) FROM stdin;
 
 
 --
--- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.conversation (id, creation_date, author_uuid) FROM stdin;
@@ -737,7 +737,7 @@ COPY public.conversation (id, creation_date, author_uuid) FROM stdin;
 
 
 --
--- Data for Name: disease; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: disease; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.disease (id, name, description, symptomes, creation_date, modification_date) FROM stdin;
@@ -747,7 +747,7 @@ COPY public.disease (id, name, description, symptomes, creation_date, modificati
 
 
 --
--- Data for Name: forum; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: forum; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.forum (id, title, description, img_url, is_archived, creation_date) FROM stdin;
@@ -757,7 +757,7 @@ COPY public.forum (id, title, description, img_url, is_archived, creation_date) 
 
 
 --
--- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public."group" (id, name, forum_id) FROM stdin;
@@ -767,7 +767,7 @@ COPY public."group" (id, name, forum_id) FROM stdin;
 
 
 --
--- Data for Name: privatemessage; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: privatemessage; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.privatemessage (id, message, creation_date, modification_date, author_uuid, recipient_fk, conversation_fk) FROM stdin;
@@ -778,7 +778,7 @@ COPY public.privatemessage (id, message, creation_date, modification_date, autho
 
 
 --
--- Data for Name: reply; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: reply; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.reply (id, content, ratio, creation_date, modification_date, author_uuid, thread_fk, response_to_fk) FROM stdin;
@@ -789,7 +789,7 @@ COPY public.reply (id, content, ratio, creation_date, modification_date, author_
 
 
 --
--- Data for Name: right; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: right; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public."right" (id, name) FROM stdin;
@@ -800,7 +800,7 @@ COPY public."right" (id, name) FROM stdin;
 
 
 --
--- Data for Name: subscribe; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: subscribe; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.subscribe (id, creation_date, "accountUuid", "forumId") FROM stdin;
@@ -808,7 +808,7 @@ COPY public.subscribe (id, creation_date, "accountUuid", "forumId") FROM stdin;
 
 
 --
--- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
@@ -818,7 +818,7 @@ COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_da
 
 
 --
--- Data for Name: vote_reply; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: vote_reply; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.vote_reply (id, author_fk, reply_fk, creation_date, vote_type) FROM stdin;
@@ -826,7 +826,7 @@ COPY public.vote_reply (id, author_fk, reply_fk, creation_date, vote_type) FROM 
 
 
 --
--- Data for Name: vote_thread; Type: TABLE DATA; Schema: public; Owner: nicolasp
+-- Data for Name: vote_thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
 COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_i) FROM stdin;
@@ -834,98 +834,98 @@ COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_i) FR
 
 
 --
--- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.article_id_seq', 1, false);
 
 
 --
--- Name: banhammer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: banhammer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.banhammer_id_seq', 1, false);
 
 
 --
--- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.conversation_id_seq', 1, false);
 
 
 --
--- Name: disease_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: disease_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.disease_id_seq', 1, false);
 
 
 --
--- Name: forum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: forum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.forum_id_seq', 1, false);
 
 
 --
--- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.group_id_seq', 1, false);
 
 
 --
--- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.privatemessage_id_seq', 1, false);
 
 
 --
--- Name: reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.reply_id_seq', 1, false);
 
 
 --
--- Name: right_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: right_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.right_id_seq', 1, false);
 
 
 --
--- Name: subscribe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: subscribe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.subscribe_id_seq', 1, false);
 
 
 --
--- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.thread_id_seq', 1, false);
 
 
 --
--- Name: vote_reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: vote_reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.vote_reply_id_seq', 1, false);
 
 
 --
--- Name: vote_thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+-- Name: vote_thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
 SELECT pg_catalog.setval('public.vote_thread_id_seq', 1, false);
 
 
 --
--- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.account
@@ -933,7 +933,7 @@ ALTER TABLE ONLY public.account
 
 
 --
--- Name: article article_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: article article_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.article
@@ -941,7 +941,7 @@ ALTER TABLE ONLY public.article
 
 
 --
--- Name: banhammer banhammer_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: banhammer banhammer_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.banhammer
@@ -949,7 +949,7 @@ ALTER TABLE ONLY public.banhammer
 
 
 --
--- Name: conversation conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: conversation conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.conversation
@@ -957,7 +957,7 @@ ALTER TABLE ONLY public.conversation
 
 
 --
--- Name: disease disease_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: disease disease_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.disease
@@ -965,7 +965,7 @@ ALTER TABLE ONLY public.disease
 
 
 --
--- Name: forum forum_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: forum forum_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.forum
@@ -973,7 +973,7 @@ ALTER TABLE ONLY public.forum
 
 
 --
--- Name: group group_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: group group_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public."group"
@@ -981,7 +981,7 @@ ALTER TABLE ONLY public."group"
 
 
 --
--- Name: reply post_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: reply post_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.reply
@@ -989,7 +989,7 @@ ALTER TABLE ONLY public.reply
 
 
 --
--- Name: privatemessage privatemessage_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: privatemessage privatemessage_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.privatemessage
@@ -997,7 +997,7 @@ ALTER TABLE ONLY public.privatemessage
 
 
 --
--- Name: right right_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: right right_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public."right"
@@ -1005,7 +1005,7 @@ ALTER TABLE ONLY public."right"
 
 
 --
--- Name: thread thread_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: thread thread_pkey; Type: CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.thread
@@ -1013,7 +1013,7 @@ ALTER TABLE ONLY public.thread
 
 
 --
--- Name: banhammer fk_ban_forum; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: banhammer fk_ban_forum; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.banhammer
@@ -1021,7 +1021,7 @@ ALTER TABLE ONLY public.banhammer
 
 
 --
--- Name: banhammer fk_ban_user; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: banhammer fk_ban_user; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.banhammer
@@ -1029,7 +1029,7 @@ ALTER TABLE ONLY public.banhammer
 
 
 --
--- Name: conversation fk_conversation_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: conversation fk_conversation_author; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.conversation
@@ -1037,7 +1037,7 @@ ALTER TABLE ONLY public.conversation
 
 
 --
--- Name: group fk_group_forum; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: group fk_group_forum; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public."group"
@@ -1045,7 +1045,7 @@ ALTER TABLE ONLY public."group"
 
 
 --
--- Name: privatemessage fk_pm_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: privatemessage fk_pm_author; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.privatemessage
@@ -1053,7 +1053,7 @@ ALTER TABLE ONLY public.privatemessage
 
 
 --
--- Name: privatemessage fk_pm_conversation; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: privatemessage fk_pm_conversation; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.privatemessage
@@ -1061,7 +1061,7 @@ ALTER TABLE ONLY public.privatemessage
 
 
 --
--- Name: privatemessage fk_pm_recipient; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: privatemessage fk_pm_recipient; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.privatemessage
@@ -1069,7 +1069,7 @@ ALTER TABLE ONLY public.privatemessage
 
 
 --
--- Name: reply fk_post_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: reply fk_post_author; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.reply
@@ -1077,7 +1077,7 @@ ALTER TABLE ONLY public.reply
 
 
 --
--- Name: reply fk_post_response; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: reply fk_post_response; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.reply
@@ -1085,7 +1085,7 @@ ALTER TABLE ONLY public.reply
 
 
 --
--- Name: reply fk_post_thread; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: reply fk_post_thread; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.reply
@@ -1093,7 +1093,7 @@ ALTER TABLE ONLY public.reply
 
 
 --
--- Name: thread fk_thread_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: thread fk_thread_author; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.thread
@@ -1101,7 +1101,7 @@ ALTER TABLE ONLY public.thread
 
 
 --
--- Name: thread fk_thread_forum; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: thread fk_thread_forum; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.thread
@@ -1109,7 +1109,7 @@ ALTER TABLE ONLY public.thread
 
 
 --
--- Name: vote_reply vote_reply_author_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: vote_reply vote_reply_author_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.vote_reply
@@ -1117,7 +1117,7 @@ ALTER TABLE ONLY public.vote_reply
 
 
 --
--- Name: vote_reply vote_reply_reply_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+-- Name: vote_reply vote_reply_reply_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.vote_reply
