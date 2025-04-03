@@ -1,248 +1,1121 @@
--- Supprimer les tables si elles existent déjà (ordre inverse des dépendances)
-DROP TABLE IF EXISTS "banhammer" CASCADE;
-DROP TABLE IF EXISTS "privatemessage" CASCADE;
-DROP TABLE IF EXISTS "conversation" CASCADE;
-DROP TABLE IF EXISTS "post" CASCADE;
-DROP TABLE IF EXISTS "thread" CASCADE;
-DROP TABLE IF EXISTS "forum" CASCADE;
-DROP TABLE IF EXISTS "article" CASCADE;
-DROP TABLE IF EXISTS "disease" CASCADE;
-DROP TABLE IF EXISTS "group" CASCADE;
-DROP TABLE IF EXISTS "right" CASCADE;
-DROP TABLE IF EXISTS "account" CASCADE;
+--
+-- PostgreSQL database dump
+--
 
--- ===================================
--- Table: account
--- ===================================
-CREATE TABLE "account" (
-    "uuid"             uuid         PRIMARY KEY DEFAULT gen_random_uuid(),
-    "firstname"        VARCHAR(100) NOT NULL,
-    "lastname"         VARCHAR(100) NOT NULL,
-    "email"            VARCHAR(255) NOT NULL,
-    "password"         VARCHAR(255) NOT NULL,
-    "phone"            VARCHAR(50),
-    "karma"            INT          DEFAULT 0,
-    "global_bantime"   VARCHAR(255),       -- ou TIMESTAMP/DATE/INT selon vos données
-    "validated"        BOOLEAN      DEFAULT FALSE
+-- Dumped from database version 13.19 (Debian 13.19-1.pgdg120+1)
+-- Dumped by pg_dump version 13.19 (Debian 13.19-1.pgdg120+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+ALTER TABLE ONLY public.vote_reply DROP CONSTRAINT vote_reply_author_uuid_fkey;
+ALTER TABLE ONLY public.thread DROP CONSTRAINT fk_thread_forum;
+ALTER TABLE ONLY public.thread DROP CONSTRAINT fk_thread_author;
+ALTER TABLE ONLY public.reply DROP CONSTRAINT fk_post_thread;
+ALTER TABLE ONLY public.reply DROP CONSTRAINT fk_post_response;
+ALTER TABLE ONLY public.reply DROP CONSTRAINT fk_post_author;
+ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT fk_pm_recipient;
+ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT fk_pm_conversation;
+ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT fk_pm_author;
+ALTER TABLE ONLY public."group" DROP CONSTRAINT fk_group_forum;
+ALTER TABLE ONLY public.conversation DROP CONSTRAINT fk_conversation_author;
+ALTER TABLE ONLY public.banhammer DROP CONSTRAINT fk_ban_user;
+ALTER TABLE ONLY public.banhammer DROP CONSTRAINT fk_ban_forum;
+ALTER TABLE ONLY public.thread DROP CONSTRAINT thread_pkey;
+ALTER TABLE ONLY public."right" DROP CONSTRAINT right_pkey;
+ALTER TABLE ONLY public.privatemessage DROP CONSTRAINT privatemessage_pkey;
+ALTER TABLE ONLY public.reply DROP CONSTRAINT post_pkey;
+ALTER TABLE ONLY public."group" DROP CONSTRAINT group_pkey;
+ALTER TABLE ONLY public.forum DROP CONSTRAINT forum_pkey;
+ALTER TABLE ONLY public.disease DROP CONSTRAINT disease_pkey;
+ALTER TABLE ONLY public.conversation DROP CONSTRAINT conversation_pkey;
+ALTER TABLE ONLY public.banhammer DROP CONSTRAINT banhammer_pkey;
+ALTER TABLE ONLY public.article DROP CONSTRAINT article_pkey;
+ALTER TABLE ONLY public.account DROP CONSTRAINT account_pkey;
+ALTER TABLE public.vote_thread ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.vote_reply ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.thread ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.subscribe ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public."right" ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.reply ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.privatemessage ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public."group" ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.forum ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.disease ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.conversation ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.banhammer ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.article ALTER COLUMN id DROP DEFAULT;
+DROP SEQUENCE public.vote_thread_id_seq;
+DROP TABLE public.vote_thread;
+DROP SEQUENCE public.vote_reply_id_seq;
+DROP TABLE public.vote_reply;
+DROP SEQUENCE public.thread_id_seq;
+DROP TABLE public.thread;
+DROP SEQUENCE public.subscribe_id_seq;
+DROP TABLE public.subscribe;
+DROP SEQUENCE public.right_id_seq;
+DROP TABLE public."right";
+DROP SEQUENCE public.privatemessage_id_seq;
+DROP TABLE public.privatemessage;
+DROP SEQUENCE public.post_id_seq;
+DROP TABLE public.reply;
+DROP SEQUENCE public.group_id_seq;
+DROP TABLE public."group";
+DROP SEQUENCE public.forum_id_seq;
+DROP TABLE public.forum;
+DROP SEQUENCE public.disease_id_seq;
+DROP TABLE public.disease;
+DROP SEQUENCE public.conversation_id_seq;
+DROP TABLE public.conversation;
+DROP SEQUENCE public.banhammer_id_seq;
+DROP TABLE public.banhammer;
+DROP SEQUENCE public.article_id_seq;
+DROP TABLE public.article;
+DROP TABLE public.account;
+DROP EXTENSION "uuid-ossp";
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: account; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.account (
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    firstname character varying(100) NOT NULL,
+    lastname character varying(100) NOT NULL,
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    phone character varying(50) NOT NULL,
+    karma integer DEFAULT 0 NOT NULL,
+    global_bantime bigint DEFAULT '0'::bigint NOT NULL,
+    validated boolean DEFAULT false NOT NULL
 );
 
--- ===================================
--- Table: forum
--- ===================================
-CREATE TABLE "forum" (
-    "id"            SERIAL          PRIMARY KEY,
-    "title"         VARCHAR(255) NOT NULL,
-    "description"   TEXT,
-    "img_url"       VARCHAR(255),
-    "is_archived"   BOOLEAN NOT NULL DEFAULT FALSE,
-    "creation_date" TIMESTAMP    -- ou VARCHAR(255), selon vos données
+
+ALTER TABLE public.account OWNER TO nicolasp;
+
+--
+-- Name: article; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.article (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    content text,
+    ratio integer DEFAULT 0,
+    creation_date timestamp without time zone,
+    source character varying(255),
+    cover_img_url character varying(255)
 );
 
--- ===================================
--- Table: thread
--- ===================================
-CREATE TABLE "thread" (
-    "id"                SERIAL          PRIMARY KEY,
-    "title"             VARCHAR(255) NOT NULL,
-    "content"           TEXT         NOT NULL,
-    "img_url"           VARCHAR(255),
-    "ratio"             INT          DEFAULT 0,
-    "creation_date"     TIMESTAMP,
-    "modification_date" TIMESTAMP,
-    "author_fk"         uuid,
-    "forum_fk"          INT,
-    CONSTRAINT fk_thread_author FOREIGN KEY ("author_fk") REFERENCES "account"("uuid")   ON DELETE SET NULL,
-    CONSTRAINT fk_thread_forum  FOREIGN KEY ("forum_fk")  REFERENCES "forum"("id")    ON DELETE CASCADE
+
+ALTER TABLE public.article OWNER TO nicolasp;
+
+--
+-- Name: article_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.article_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.article_id_seq OWNER TO nicolasp;
+
+--
+-- Name: article_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.article_id_seq OWNED BY public.article.id;
+
+
+--
+-- Name: banhammer; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.banhammer (
+    id integer NOT NULL,
+    account_fk uuid,
+    forum_id integer,
+    bantime character varying(255)
 );
 
--- ===================================
--- Table: post
--- ===================================
-CREATE TABLE "post" (
-    "id"                SERIAL          PRIMARY KEY,
-    "content"           TEXT         NOT NULL,
-    "ratio"             INT          DEFAULT 0,
-    "creation_date"     TIMESTAMP,
-    "modification_date" TIMESTAMP,
-    "author_fk"         uuid,
-    "thread_fk"         INT,
-    "response_to_fk"    INT,
-    CONSTRAINT fk_post_author    FOREIGN KEY ("author_fk")      REFERENCES "account"("uuid")   ON DELETE SET NULL,
-    CONSTRAINT fk_post_thread    FOREIGN KEY ("thread_fk")      REFERENCES "thread"("id")   ON DELETE CASCADE,
-    CONSTRAINT fk_post_response  FOREIGN KEY ("response_to_fk") REFERENCES "post"("id")     ON DELETE CASCADE
+
+ALTER TABLE public.banhammer OWNER TO nicolasp;
+
+--
+-- Name: banhammer_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.banhammer_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.banhammer_id_seq OWNER TO nicolasp;
+
+--
+-- Name: banhammer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.banhammer_id_seq OWNED BY public.banhammer.id;
+
+
+--
+-- Name: conversation; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.conversation (
+    id integer NOT NULL,
+    creation_date timestamp without time zone,
+    author_uuid uuid
 );
 
--- ===================================
--- Table: banhammer
--- ===================================
-CREATE TABLE "banhammer" (
-    "id"       SERIAL    PRIMARY KEY,
-    "account_fk"  uuid,
-    "forum_fk" INT,
-    "bantime"  VARCHAR(255),   -- ou TIMESTAMP/DATE/INT selon vos données
-    CONSTRAINT fk_ban_user   FOREIGN KEY ("account_fk")  REFERENCES "account"("uuid")  ON DELETE CASCADE,
-    CONSTRAINT fk_ban_forum  FOREIGN KEY ("forum_fk") REFERENCES "forum"("id")   ON DELETE CASCADE
+
+ALTER TABLE public.conversation OWNER TO nicolasp;
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.conversation_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.conversation_id_seq OWNER TO nicolasp;
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.conversation_id_seq OWNED BY public.conversation.id;
+
+
+--
+-- Name: disease; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.disease (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    description text,
+    symptomes text,
+    creation_date timestamp without time zone,
+    modification_date timestamp without time zone
 );
 
--- ===================================
--- Table: conversation
--- ===================================
-CREATE TABLE "conversation" (
-    "id"            SERIAL PRIMARY KEY,
-    "creation_date" TIMESTAMP,
-    "author_fk"     uuid,
-    CONSTRAINT fk_conversation_author FOREIGN KEY ("author_fk") REFERENCES "account"("uuid") ON DELETE SET NULL
+
+ALTER TABLE public.disease OWNER TO nicolasp;
+
+--
+-- Name: disease_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.disease_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.disease_id_seq OWNER TO nicolasp;
+
+--
+-- Name: disease_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.disease_id_seq OWNED BY public.disease.id;
+
+
+--
+-- Name: forum; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.forum (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    description text,
+    img_url character varying(255),
+    is_archived boolean DEFAULT false NOT NULL,
+    creation_date timestamp without time zone DEFAULT now() NOT NULL
 );
 
--- ===================================
--- Table: privatemessage
--- ===================================
-CREATE TABLE "privatemessage" (
-    "id"               INT       PRIMARY KEY,
-    "message"          TEXT      NOT NULL,
-    "creation_date"    TIMESTAMP,
-    "modification_date" TIMESTAMP,
-    "author_fk"        uuid,
-    "recipient_fk"     uuid,
-    "conversation_fk"  INT,
-    CONSTRAINT fk_pm_author       FOREIGN KEY ("author_fk")       REFERENCES "account"("uuid")          ON DELETE SET NULL,
-    CONSTRAINT fk_pm_recipient    FOREIGN KEY ("recipient_fk")    REFERENCES "account"("uuid")          ON DELETE CASCADE,
-    CONSTRAINT fk_pm_conversation FOREIGN KEY ("conversation_fk") REFERENCES "conversation"("id")     ON DELETE CASCADE
+
+ALTER TABLE public.forum OWNER TO nicolasp;
+
+--
+-- Name: forum_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.forum_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.forum_id_seq OWNER TO nicolasp;
+
+--
+-- Name: forum_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.forum_id_seq OWNED BY public.forum.id;
+
+
+--
+-- Name: group; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public."group" (
+    id integer NOT NULL,
+    name character varying(255),
+    forum_id integer
 );
 
--- ===================================
--- Table: article
--- ===================================
-CREATE TABLE "article" (
-    "id"             SERIAL          PRIMARY KEY,
-    "title"          VARCHAR(255) NOT NULL,
-    "content"        TEXT,
-    "ratio"          INT          DEFAULT 0,
-    "creation_date"  TIMESTAMP,
-    "source"         VARCHAR(255),
-    "cover_img_url"  VARCHAR(255)
+
+ALTER TABLE public."group" OWNER TO nicolasp;
+
+--
+-- Name: group_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.group_id_seq OWNER TO nicolasp;
+
+--
+-- Name: group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.group_id_seq OWNED BY public."group".id;
+
+
+--
+-- Name: reply; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.reply (
+    id integer NOT NULL,
+    content text NOT NULL,
+    ratio integer DEFAULT 0,
+    creation_date timestamp without time zone,
+    modification_date timestamp without time zone,
+    author_uuid uuid,
+    thread_fk integer,
+    response_to_fk integer
 );
 
--- ===================================
--- Table: disease
--- ===================================
-CREATE TABLE "disease" (
-    "id"                SERIAL          PRIMARY KEY,
-    "name"              VARCHAR(255) NOT NULL,
-    "description"       TEXT,
-    "symptomes"         TEXT,
-    "creation_date"     TIMESTAMP,
-    "modification_date" TIMESTAMP
+
+ALTER TABLE public.reply OWNER TO nicolasp;
+
+--
+-- Name: post_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.post_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.post_id_seq OWNER TO nicolasp;
+
+--
+-- Name: post_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.post_id_seq OWNED BY public.reply.id;
+
+
+--
+-- Name: privatemessage; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.privatemessage (
+    id integer NOT NULL,
+    message text NOT NULL,
+    creation_date timestamp without time zone,
+    modification_date timestamp without time zone,
+    author_uuid uuid,
+    recipient_fk uuid,
+    conversation_fk integer
 );
 
--- ===================================
--- Table: group
--- ===================================
-CREATE TABLE "group" (
-    "id"       SERIAL           PRIMARY KEY,
-    "name"     VARCHAR(255),
-    "forum_fk" INT,
-    CONSTRAINT fk_group_forum FOREIGN KEY ("forum_fk") REFERENCES "forum"("id") ON DELETE CASCADE
+
+ALTER TABLE public.privatemessage OWNER TO nicolasp;
+
+--
+-- Name: privatemessage_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.privatemessage_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.privatemessage_id_seq OWNER TO nicolasp;
+
+--
+-- Name: privatemessage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.privatemessage_id_seq OWNED BY public.privatemessage.id;
+
+
+--
+-- Name: right; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public."right" (
+    id integer NOT NULL,
+    name character varying(255)
 );
 
--- ===================================
--- Table: right
--- ===================================
-CREATE TABLE "right" (
-    "id"   SERIAL           PRIMARY KEY,
-    "name" VARCHAR(255)
+
+ALTER TABLE public."right" OWNER TO nicolasp;
+
+--
+-- Name: right_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.right_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.right_id_seq OWNER TO nicolasp;
+
+--
+-- Name: right_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.right_id_seq OWNED BY public."right".id;
+
+
+--
+-- Name: subscribe; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.subscribe (
+    id integer NOT NULL,
+    creation_date timestamp without time zone DEFAULT now() NOT NULL,
+    "accountUuid" uuid,
+    "forumId" integer
 );
 
--- ===================================
--- Fin de la création de la structure
--- ===================================
--- ========================
--- DÉBUT DE LA TRANSACTION
--- ========================
-BEGIN;
 
--- ======================================
--- Exemple d'insertion dans la table "account"
--- ======================================
-INSERT INTO "account" (uuid, firstname, lastname, email, password, phone, karma, global_bantime, validated) VALUES
-('00000000-aaaa-bbbb-cccc-000000000001', 'John', 'Doe', 'john.doe@example.com', 'hashed_password_john', '+330123456789', 10, '2025-01-01 10:00:00', TRUE),
-('00000000-aaaa-bbbb-cccc-000000000002', 'Jane', 'Smith', 'jane.smith@example.com', 'hashed_password_jane', '+330987654321', 5,  '2025-01-02 11:30:00', FALSE);
+ALTER TABLE public.subscribe OWNER TO nicolasp;
 
--- ======================================
--- Exemple d'insertion dans la table "forum"
--- ======================================
-INSERT INTO "forum" (id, title, description, img_url, creation_date) VALUES
-(1, 'Présentation & Règles', 'forum dédié à la présentation et aux règles', 'https://example.com/forum1.png', '2025-01-01 09:00:00'),
-(2, 'Discussions Générales', 'forum pour tous les sujets généraux', 'https://example.com/forum2.png', '2025-01-05 08:00:00');
+--
+-- Name: subscribe_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
 
--- ======================================
--- Exemple d'insertion dans la table "thread"
--- ======================================
-INSERT INTO "thread" (id, title, content, img_url, ratio, creation_date, modification_date, author_fk, forum_fk) VALUES
-(100, 'Première Discussion', 'Contenu du premier thread', 'https://example.com/thread1.png', 0, '2025-01-02 15:00:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000001', 1),
-(101, 'Deuxième Discussion', 'Contenu du deuxième thread', NULL, 5, '2025-01-06 10:00:00', '2025-01-07 09:00:00', '00000000-aaaa-bbbb-cccc-000000000002', 2);
+CREATE SEQUENCE public.subscribe_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
--- ======================================
--- Exemple d'insertion dans la table "post"
--- ======================================
-INSERT INTO "post" (id, content, ratio, creation_date, modification_date, author_fk, thread_fk, response_to_fk) VALUES
-(1000, 'Premier post du thread 100', 2, '2025-01-02 15:05:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000002', 100, NULL),
-(1001, 'Réponse au post 1000', 1, '2025-01-02 15:20:00', '2025-01-02 15:25:00', '00000000-aaaa-bbbb-cccc-000000000001', 100, 1000),
-(1002, 'Premier post du thread 101', 3, '2025-01-07 11:00:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', 101, NULL);
 
--- ======================================
--- Exemple d'insertion dans la table "banhammer"
--- ======================================
-INSERT INTO "banhammer" (id, account_fk, forum_fk, bantime) VALUES
-(2000, '00000000-aaaa-bbbb-cccc-000000000002', 1, '2025-01-03 00:00:00'),
-(2001, '00000000-aaaa-bbbb-cccc-000000000001', 2, '2025-01-08 00:00:00');
+ALTER TABLE public.subscribe_id_seq OWNER TO nicolasp;
 
--- ======================================
--- Exemple d'insertion dans la table "conversation"
--- ======================================
-INSERT INTO "conversation" (id, creation_date, author_fk) VALUES
-(3000, '2025-01-03 12:00:00', '00000000-aaaa-bbbb-cccc-000000000001'),
-(3001, '2025-01-05 10:30:00', '00000000-aaaa-bbbb-cccc-000000000002');
+--
+-- Name: subscribe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
 
--- ======================================
--- Exemple d'insertion dans la table "privatemessage"
--- ======================================
-INSERT INTO "privatemessage" (id, message, creation_date, modification_date, author_fk, recipient_fk, conversation_fk) VALUES
-(4000, 'Salut, comment vas-tu ?', '2025-01-03 12:05:00', NULL, '00000000-aaaa-bbbb-cccc-000000000001', '00000000-aaaa-bbbb-cccc-000000000002', 3000),
-(4001, 'Je vais bien merci !', '2025-01-03 12:10:00', '2025-01-03 12:15:00', '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3000),
-(4002, 'Petite question importante...', '2025-01-05 10:35:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3001);
+ALTER SEQUENCE public.subscribe_id_seq OWNED BY public.subscribe.id;
 
--- ======================================
--- Exemple d'insertion dans la table "article"
--- ======================================
-INSERT INTO "article" (id, title, content, ratio, creation_date, source, cover_img_url) VALUES
-(5000, 'article Santé 1', 'Contenu de l article 1', 10, '2025-01-10 09:00:00', 'Le Journal de la Santé', 'https://example.com/article1.png'),
-(5001, 'article Santé 2', 'Contenu de l article 2', 5,  '2025-01-11 09:00:00', 'Magazine Bien-Être', 'https://example.com/article2.png');
 
--- ======================================
--- Exemple d'insertion dans la table "disease"
--- ======================================
-INSERT INTO "disease" (id, name, description, symptomes, creation_date, modification_date) VALUES
-(6000, 'Grippe', 'Maladie virale saisonnière', 'Fièvre, toux, courbatures', '2025-01-12 10:00:00', NULL),
-(6001, 'Rhume', 'Infection virale bénigne', 'Écoulement nasal, éternuements', '2025-01-13 14:00:00', '2025-01-14 09:00:00');
+--
+-- Name: thread; Type: TABLE; Schema: public; Owner: nicolasp
+--
 
--- ======================================
--- Exemple d'insertion dans la table "group"
--- ======================================
-INSERT INTO "group" (id, name, forum_fk) VALUES
-(7000, 'Modérateurs', 1),
-(7001, 'Utilisateurs VIP', 2);
+CREATE TABLE public.thread (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    content text NOT NULL,
+    img_url character varying(255),
+    ratio integer DEFAULT 0,
+    is_archived boolean DEFAULT false NOT NULL,
+    creation_date timestamp without time zone,
+    modification_date timestamp without time zone,
+    author_uuid uuid,
+    forum_id integer
+);
 
--- ======================================
--- Exemple d'insertion dans la table "right"
--- ======================================
-INSERT INTO "right" (id, name) VALUES
-(8000, 'MODERATE_forum'),
-(8001, 'CREATE_thread'),
-(8002, 'BAN_user');
 
--- =====================
--- FIN DE LA TRANSACTION
--- =====================
-COMMIT;
+ALTER TABLE public.thread OWNER TO nicolasp;
+
+--
+-- Name: thread_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.thread_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.thread_id_seq OWNER TO nicolasp;
+
+--
+-- Name: thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.thread_id_seq OWNED BY public.thread.id;
+
+
+--
+-- Name: vote_reply; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.vote_reply (
+    id integer NOT NULL,
+    author_uuid uuid NOT NULL,
+    reply_fk integer NOT NULL,
+    creation_date timestamp without time zone DEFAULT now() NOT NULL,
+    vote_type boolean NOT NULL
+);
+
+
+ALTER TABLE public.vote_reply OWNER TO nicolasp;
+
+--
+-- Name: vote_reply_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.vote_reply_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.vote_reply_id_seq OWNER TO nicolasp;
+
+--
+-- Name: vote_reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.vote_reply_id_seq OWNED BY public.vote_reply.id;
+
+
+--
+-- Name: vote_thread; Type: TABLE; Schema: public; Owner: nicolasp
+--
+
+CREATE TABLE public.vote_thread (
+    id integer NOT NULL,
+    vote_type boolean NOT NULL,
+    creation_date timestamp without time zone DEFAULT now() NOT NULL,
+    author_uuid uuid,
+    thread_fk integer
+);
+
+
+ALTER TABLE public.vote_thread OWNER TO nicolasp;
+
+--
+-- Name: vote_thread_id_seq; Type: SEQUENCE; Schema: public; Owner: nicolasp
+--
+
+CREATE SEQUENCE public.vote_thread_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.vote_thread_id_seq OWNER TO nicolasp;
+
+--
+-- Name: vote_thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: nicolasp
+--
+
+ALTER SEQUENCE public.vote_thread_id_seq OWNED BY public.vote_thread.id;
+
+
+--
+-- Name: article id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.article ALTER COLUMN id SET DEFAULT nextval('public.article_id_seq'::regclass);
+
+
+--
+-- Name: banhammer id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.banhammer ALTER COLUMN id SET DEFAULT nextval('public.banhammer_id_seq'::regclass);
+
+
+--
+-- Name: conversation id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.conversation ALTER COLUMN id SET DEFAULT nextval('public.conversation_id_seq'::regclass);
+
+
+--
+-- Name: disease id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.disease ALTER COLUMN id SET DEFAULT nextval('public.disease_id_seq'::regclass);
+
+
+--
+-- Name: forum id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.forum ALTER COLUMN id SET DEFAULT nextval('public.forum_id_seq'::regclass);
+
+
+--
+-- Name: group id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public."group" ALTER COLUMN id SET DEFAULT nextval('public.group_id_seq'::regclass);
+
+
+--
+-- Name: privatemessage id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.privatemessage ALTER COLUMN id SET DEFAULT nextval('public.privatemessage_id_seq'::regclass);
+
+
+--
+-- Name: reply id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.reply ALTER COLUMN id SET DEFAULT nextval('public.post_id_seq'::regclass);
+
+
+--
+-- Name: right id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public."right" ALTER COLUMN id SET DEFAULT nextval('public.right_id_seq'::regclass);
+
+
+--
+-- Name: subscribe id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.subscribe ALTER COLUMN id SET DEFAULT nextval('public.subscribe_id_seq'::regclass);
+
+
+--
+-- Name: thread id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.thread ALTER COLUMN id SET DEFAULT nextval('public.thread_id_seq'::regclass);
+
+
+--
+-- Name: vote_reply id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.vote_reply ALTER COLUMN id SET DEFAULT nextval('public.vote_reply_id_seq'::regclass);
+
+
+--
+-- Name: vote_thread id; Type: DEFAULT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.vote_thread ALTER COLUMN id SET DEFAULT nextval('public.vote_thread_id_seq'::regclass);
+
+
+--
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.account (uuid, firstname, lastname, email, password, phone, karma, global_bantime, validated) FROM stdin;
+00000000-aaaa-bbbb-cccc-000000000001	John	Doe	john.doe@example.com	hashed_password_john	+330123456789	10	0	t
+00000000-aaaa-bbbb-cccc-000000000002	Jane	Smith	jane.smith@example.com	hashed_password_jane	+330987654321	5	0	f
+\.
+
+
+--
+-- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.article (id, title, content, ratio, creation_date, source, cover_img_url) FROM stdin;
+5000	article Santé 1	Contenu de l article 1	10	2025-01-10 09:00:00	Le Journal de la Santé	https://example.com/article1.png
+5001	article Santé 2	Contenu de l article 2	5	2025-01-11 09:00:00	Magazine Bien-Être	https://example.com/article2.png
+\.
+
+
+--
+-- Data for Name: banhammer; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.banhammer (id, account_fk, forum_id, bantime) FROM stdin;
+2000	00000000-aaaa-bbbb-cccc-000000000002	1	2025-01-03 00:00:00
+2001	00000000-aaaa-bbbb-cccc-000000000001	2	2025-01-08 00:00:00
+\.
+
+
+--
+-- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.conversation (id, creation_date, author_uuid) FROM stdin;
+3000	2025-01-03 12:00:00	00000000-aaaa-bbbb-cccc-000000000001
+3001	2025-01-05 10:30:00	00000000-aaaa-bbbb-cccc-000000000002
+\.
+
+
+--
+-- Data for Name: disease; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.disease (id, name, description, symptomes, creation_date, modification_date) FROM stdin;
+6000	Grippe	Maladie virale saisonnière	Fièvre, toux, courbatures	2025-01-12 10:00:00	\N
+6001	Rhume	Infection virale bénigne	Écoulement nasal, éternuements	2025-01-13 14:00:00	2025-01-14 09:00:00
+\.
+
+
+--
+-- Data for Name: forum; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.forum (id, title, description, img_url, is_archived, creation_date) FROM stdin;
+1	Présentation & Règles	forum dédié à la présentation et aux règles	https://example.com/forum1.png	f	2025-01-01 09:00:00
+2	Discussions Générales	forum pour tous les sujets généraux	https://example.com/forum2.png	f	2025-01-05 08:00:00
+\.
+
+
+--
+-- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public."group" (id, name, forum_id) FROM stdin;
+7000	Modérateurs	1
+7001	Utilisateurs VIP	2
+\.
+
+
+--
+-- Data for Name: privatemessage; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.privatemessage (id, message, creation_date, modification_date, author_uuid, recipient_fk, conversation_fk) FROM stdin;
+4000	Salut, comment vas-tu ?	2025-01-03 12:05:00	\N	00000000-aaaa-bbbb-cccc-000000000001	00000000-aaaa-bbbb-cccc-000000000002	3000
+4001	Je vais bien merci !	2025-01-03 12:10:00	2025-01-03 12:15:00	00000000-aaaa-bbbb-cccc-000000000002	00000000-aaaa-bbbb-cccc-000000000001	3000
+4002	Petite question importante...	2025-01-05 10:35:00	\N	00000000-aaaa-bbbb-cccc-000000000002	00000000-aaaa-bbbb-cccc-000000000001	3001
+\.
+
+
+--
+-- Data for Name: reply; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.reply (id, content, ratio, creation_date, modification_date, author_uuid, thread_fk, response_to_fk) FROM stdin;
+1000	Premier post du thread 100	2	2025-01-02 15:05:00	2025-01-02 15:10:00	00000000-aaaa-bbbb-cccc-000000000002	100	\N
+1001	Réponse au post 1000	1	2025-01-02 15:20:00	2025-01-02 15:25:00	00000000-aaaa-bbbb-cccc-000000000001	100	1000
+1002	Premier post du thread 101	3	2025-01-07 11:00:00	\N	00000000-aaaa-bbbb-cccc-000000000002	101	\N
+\.
+
+
+--
+-- Data for Name: right; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public."right" (id, name) FROM stdin;
+8000	MODERATE_forum
+8001	CREATE_thread
+8002	BAN_user
+\.
+
+
+--
+-- Data for Name: subscribe; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.subscribe (id, creation_date, "accountUuid", "forumId") FROM stdin;
+\.
+
+
+--
+-- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
+100	Première Discussion	Contenu du premier thread	https://example.com/thread1.png	0	f	2025-01-02 15:00:00	2025-01-02 15:10:00	00000000-aaaa-bbbb-cccc-000000000001	1
+101	Deuxième Discussion	Contenu du deuxième thread	\N	5	f	2025-01-06 10:00:00	2025-01-07 09:00:00	00000000-aaaa-bbbb-cccc-000000000002	2
+\.
+
+
+--
+-- Data for Name: vote_reply; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.vote_reply (id, author_uuid, reply_fk, creation_date, vote_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: vote_thread; Type: TABLE DATA; Schema: public; Owner: nicolasp
+--
+
+COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_fk) FROM stdin;
+\.
+
+
+--
+-- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.article_id_seq', 1, false);
+
+
+--
+-- Name: banhammer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.banhammer_id_seq', 1, false);
+
+
+--
+-- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.conversation_id_seq', 1, false);
+
+
+--
+-- Name: disease_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.disease_id_seq', 1, false);
+
+
+--
+-- Name: forum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.forum_id_seq', 1, false);
+
+
+--
+-- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.group_id_seq', 1, false);
+
+
+--
+-- Name: post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.post_id_seq', 1, false);
+
+
+--
+-- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.privatemessage_id_seq', 1, false);
+
+
+--
+-- Name: right_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.right_id_seq', 1, false);
+
+
+--
+-- Name: subscribe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.subscribe_id_seq', 1, false);
+
+
+--
+-- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.thread_id_seq', 1, false);
+
+
+--
+-- Name: vote_reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.vote_reply_id_seq', 1, false);
+
+
+--
+-- Name: vote_thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nicolasp
+--
+
+SELECT pg_catalog.setval('public.vote_thread_id_seq', 1, false);
+
+
+--
+-- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (uuid);
+
+
+--
+-- Name: article article_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.article
+    ADD CONSTRAINT article_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: banhammer banhammer_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.banhammer
+    ADD CONSTRAINT banhammer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: conversation conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.conversation
+    ADD CONSTRAINT conversation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: disease disease_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.disease
+    ADD CONSTRAINT disease_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: forum forum_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.forum
+    ADD CONSTRAINT forum_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: group group_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public."group"
+    ADD CONSTRAINT group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reply post_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.reply
+    ADD CONSTRAINT post_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: privatemessage privatemessage_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.privatemessage
+    ADD CONSTRAINT privatemessage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: right right_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public."right"
+    ADD CONSTRAINT right_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: thread thread_pkey; Type: CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.thread
+    ADD CONSTRAINT thread_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: banhammer fk_ban_forum; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.banhammer
+    ADD CONSTRAINT fk_ban_forum FOREIGN KEY (forum_id) REFERENCES public.forum(id) ON DELETE CASCADE;
+
+
+--
+-- Name: banhammer fk_ban_user; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.banhammer
+    ADD CONSTRAINT fk_ban_user FOREIGN KEY (account_fk) REFERENCES public.account(uuid) ON DELETE CASCADE;
+
+
+--
+-- Name: conversation fk_conversation_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.conversation
+    ADD CONSTRAINT fk_conversation_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+
+
+--
+-- Name: group fk_group_forum; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public."group"
+    ADD CONSTRAINT fk_group_forum FOREIGN KEY (forum_id) REFERENCES public.forum(id) ON DELETE CASCADE;
+
+
+--
+-- Name: privatemessage fk_pm_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.privatemessage
+    ADD CONSTRAINT fk_pm_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+
+
+--
+-- Name: privatemessage fk_pm_conversation; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.privatemessage
+    ADD CONSTRAINT fk_pm_conversation FOREIGN KEY (conversation_fk) REFERENCES public.conversation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: privatemessage fk_pm_recipient; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.privatemessage
+    ADD CONSTRAINT fk_pm_recipient FOREIGN KEY (recipient_fk) REFERENCES public.account(uuid) ON DELETE CASCADE;
+
+
+--
+-- Name: reply fk_post_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.reply
+    ADD CONSTRAINT fk_post_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+
+
+--
+-- Name: reply fk_post_response; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.reply
+    ADD CONSTRAINT fk_post_response FOREIGN KEY (response_to_fk) REFERENCES public.reply(id) ON DELETE CASCADE;
+
+
+--
+-- Name: reply fk_post_thread; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.reply
+    ADD CONSTRAINT fk_post_thread FOREIGN KEY (thread_fk) REFERENCES public.thread(id) ON DELETE CASCADE;
+
+
+--
+-- Name: thread fk_thread_author; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.thread
+    ADD CONSTRAINT fk_thread_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+
+
+--
+-- Name: thread fk_thread_forum; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.thread
+    ADD CONSTRAINT fk_thread_forum FOREIGN KEY (forum_id) REFERENCES public.forum(id) ON DELETE CASCADE;
+
+
+--
+-- Name: vote_reply vote_reply_author_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: nicolasp
+--
+
+ALTER TABLE ONLY public.vote_reply
+    ADD CONSTRAINT vote_reply_author_uuid_fkey FOREIGN KEY (author_uuid) REFERENCES public.account(uuid);
+
+
+--
+-- PostgreSQL database dump complete
+--
 
