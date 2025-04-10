@@ -130,7 +130,7 @@ CREATE TABLE public.article (
     ratio integer DEFAULT 0,
     creation_date timestamp without time zone,
     source character varying(255),
-    cover_img_url character varying(255)
+    cover_image_url character varying(255)
 );
 
 
@@ -275,7 +275,7 @@ CREATE TABLE public.forum (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
     description text,
-    img_url character varying(255),
+    image_url character varying(255),
     is_archived boolean DEFAULT false NOT NULL,
     creation_date timestamp without time zone DEFAULT now() NOT NULL
 );
@@ -497,7 +497,7 @@ CREATE TABLE public.thread (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
     content text NOT NULL,
-    img_url character varying(255),
+    image_url character varying(255),
     ratio integer DEFAULT 0,
     is_archived boolean DEFAULT false NOT NULL,
     creation_date timestamp without time zone,
@@ -710,7 +710,7 @@ COPY public.account (uuid, firstname, lastname, email, password, phone, karma, g
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.article (id, title, content, ratio, creation_date, source, cover_img_url) FROM stdin;
+COPY public.article (id, title, content, ratio, creation_date, source, cover_image_url) FROM stdin;
 5000	article Santé 1	Contenu de l article 1	10	2025-01-10 09:00:00	Le Journal de la Santé	https://example.com/article1.png
 5001	article Santé 2	Contenu de l article 2	5	2025-01-11 09:00:00	Magazine Bien-Être	https://example.com/article2.png
 \.
@@ -750,7 +750,7 @@ COPY public.disease (id, name, description, symptomes, creation_date, modificati
 -- Data for Name: forum; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.forum (id, title, description, img_url, is_archived, creation_date) FROM stdin;
+COPY public.forum (id, title, description, image_url, is_archived, creation_date) FROM stdin;
 1	Présentation & Règles	forum dédié à la présentation et aux règles	https://example.com/forum1.png	f	2025-01-01 09:00:00
 2	Discussions Générales	forum pour tous les sujets généraux	https://example.com/forum2.png	f	2025-01-05 08:00:00
 \.
@@ -811,7 +811,7 @@ COPY public.subscribe (id, creation_date, "accountUuid", "forumId") FROM stdin;
 -- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
+COPY public.thread (id, title, content, image_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
 100	Première Discussion	Contenu du premier thread	https://example.com/thread1.png	0	f	2025-01-02 15:00:00	2025-01-02 15:10:00	00000000-aaaa-bbbb-cccc-000000000001	1
 101	Deuxième Discussion	Contenu du deuxième thread	\N	5	f	2025-01-06 10:00:00	2025-01-07 09:00:00	00000000-aaaa-bbbb-cccc-000000000002	2
 \.
