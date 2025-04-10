@@ -46,7 +46,7 @@ start-prod-logs: create-network
 	$(MAKE) start-prod && $(MAKE) logs-prod
 
 dump-database:
-	docker exec -it devops-postgres-dev pg_dump -U chronoadmin -c --if-exists chronocare > bdd/postgres.sql
+	docker exec -it devops-postgres-dev pg_dump -U chronoadmin --inserts -c --if-exists chronocare > bdd/postgres.sql
 
 drop-dev-database: down
 	docker volume rm app_postgres-dev-data
