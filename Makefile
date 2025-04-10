@@ -56,3 +56,6 @@ drop-prod-database: down
 
 log-database: 
 	docker logs devops-postgres-dev
+
+nique: down
+	bash purge.sh
