@@ -837,91 +837,91 @@ INSERT INTO public.token VALUES ('12ed0488-d3c1-45ac-910c-3fd8efd879db', '000000
 -- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.article_id_seq', 1, false);
+SELECT pg_catalog.setval('public.article_id_seq',(select max(id) from public.article), false);
 
 
 --
 -- Name: banhammer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.banhammer_id_seq', 1, false);
+SELECT pg_catalog.setval('public.banhammer_id_seq',(select max(id) from public.banhammer), false);
 
 
 --
 -- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.conversation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.conversation_id_seq',(select max(id) from public.conversation), false);
 
 
 --
 -- Name: disease_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.disease_id_seq', 1, false);
+SELECT pg_catalog.setval('public.disease_id_seq',(select max(id) from public.disease), false);
 
 
 --
 -- Name: forum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.forum_id_seq', 1, false);
+SELECT pg_catalog.setval('public.forum_id_seq',(select max(id) from public.forum), false);
 
 
 --
 -- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.group_id_seq', 1, false);
+SELECT pg_catalog.setval('public.group_id_seq',(select max(id) from public.group), false);
 
 
 --
 -- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.privatemessage_id_seq', 1, false);
+SELECT pg_catalog.setval('public.privatemessage_id_seq',(select max(id) from public.privatemessage), false);
 
 
 --
 -- Name: reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.reply_id_seq', 1, false);
+SELECT pg_catalog.setval('public.reply_id_seq',(select max(id) from public.reply), false);
 
 
 --
 -- Name: right_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.right_id_seq', 1, false);
+SELECT pg_catalog.setval('public.right_id_seq',(select max(id) from public.right), false);
 
 
 --
 -- Name: subscribe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.subscribe_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subscribe_id_seq',(select max(id) from public.subscribe), false);
 
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq', 1, false);
+SELECT pg_catalog.setval('public.thread_id_seq',(select max(id) from public.thread), false);
 
 
 --
 -- Name: vote_reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.vote_reply_id_seq', 1, false);
+SELECT pg_catalog.setval('public.vote_reply_id_seq',(select max(id) from public.vote_reply), false);
 
 
 --
 -- Name: vote_thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.vote_thread_id_seq', 1, false);
+SELECT pg_catalog.setval('public.vote_thread_id_seq',(select max(id) from public.vote_thread), false);
 
 
 --
@@ -1113,6 +1113,46 @@ ALTER TABLE ONLY public.thread
 --
 
 ALTER TABLE ONLY public.token
+    ADD CONSTRAINT token_userid_fkey FOREIGN KEY (user_id) REFERENCES public.account(uuid);
+
+
+--
+-- Name: vote_reply vote_reply_author_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.vote_reply
+    ADD CONSTRAINT vote_reply_author_fk_fkey FOREIGN KEY (author_fk) REFERENCES public.account(uuid);
+
+
+--
+-- Name: vote_reply vote_reply_reply_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.vote_reply
+    ADD CONSTRAINT vote_reply_reply_fk_fkey FOREIGN KEY (reply_fk) REFERENCES public.reply(id);
+
+
+--
+-- Name: vote_thread vote_thread_author_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.vote_thread
+    ADD CONSTRAINT vote_thread_author_uuid_fkey FOREIGN KEY (author_uuid) REFERENCES public.account(uuid);
+
+
+--
+-- Name: vote_thread vote_thread_thread_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.vote_thread
+    ADD CONSTRAINT vote_thread_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.thread(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+token
     ADD CONSTRAINT token_userid_fkey FOREIGN KEY (user_id) REFERENCES public.account(uuid);
 
 
