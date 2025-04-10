@@ -16,8 +16,11 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE IF EXISTS ONLY public.vote_thread DROP CONSTRAINT IF EXISTS vote_thread_thread_id_fkey;
+ALTER TABLE IF EXISTS ONLY public.vote_thread DROP CONSTRAINT IF EXISTS vote_thread_author_uuid_fkey;
 ALTER TABLE IF EXISTS ONLY public.vote_reply DROP CONSTRAINT IF EXISTS vote_reply_reply_fk_fkey;
 ALTER TABLE IF EXISTS ONLY public.vote_reply DROP CONSTRAINT IF EXISTS vote_reply_author_fk_fkey;
+ALTER TABLE IF EXISTS ONLY public.token DROP CONSTRAINT IF EXISTS token_userid_fkey;
 ALTER TABLE IF EXISTS ONLY public.thread DROP CONSTRAINT IF EXISTS fk_thread_forum;
 ALTER TABLE IF EXISTS ONLY public.thread DROP CONSTRAINT IF EXISTS fk_thread_author;
 ALTER TABLE IF EXISTS ONLY public.reply DROP CONSTRAINT IF EXISTS fk_post_thread;
@@ -58,6 +61,7 @@ DROP SEQUENCE IF EXISTS public.vote_thread_id_seq;
 DROP TABLE IF EXISTS public.vote_thread;
 DROP SEQUENCE IF EXISTS public.vote_reply_id_seq;
 DROP TABLE IF EXISTS public.vote_reply;
+DROP TABLE IF EXISTS public.token;
 DROP SEQUENCE IF EXISTS public.thread_id_seq;
 DROP TABLE IF EXISTS public.thread;
 DROP SEQUENCE IF EXISTS public.subscribe_id_seq;
@@ -130,7 +134,7 @@ CREATE TABLE public.article (
     ratio integer DEFAULT 0,
     creation_date timestamp without time zone,
     source character varying(255),
-    cover_image_url character varying(255)
+    cover_img_url character varying(255)
 );
 
 
@@ -275,7 +279,7 @@ CREATE TABLE public.forum (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
     description text,
-    image_url character varying(255),
+    img_url character varying(255),
     is_archived boolean DEFAULT false NOT NULL,
     creation_date timestamp without time zone DEFAULT now() NOT NULL
 );
@@ -497,7 +501,7 @@ CREATE TABLE public.thread (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
     content text NOT NULL,
-    image_url character varying(255),
+    img_url character varying(255),
     ratio integer DEFAULT 0,
     is_archived boolean DEFAULT false NOT NULL,
     creation_date timestamp without time zone,
@@ -530,6 +534,23 @@ ALTER TABLE public.thread_id_seq OWNER TO chronoadmin;
 
 ALTER SEQUENCE public.thread_id_seq OWNED BY public.thread.id;
 
+
+--
+-- Name: token; Type: TABLE; Schema: public; Owner: chronoadmin
+--
+
+CREATE TABLE public.token (
+    uuid uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    expire_at timestamp without time zone DEFAULT ((now() + '01:00:00'::interval))::timestamp without time zone NOT NULL,
+    token text,
+    type text NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    revoked boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public.token OWNER TO chronoadmin;
 
 --
 -- Name: vote_reply; Type: TABLE; Schema: public; Owner: chronoadmin
@@ -576,8 +597,8 @@ CREATE TABLE public.vote_thread (
     id integer NOT NULL,
     vote_type boolean NOT NULL,
     creation_date timestamp without time zone DEFAULT now() NOT NULL,
-    author_uuid uuid,
-    thread_i integer
+    author_uuid uuid NOT NULL,
+    thread_id integer NOT NULL
 );
 
 
@@ -710,7 +731,7 @@ COPY public.account (uuid, firstname, lastname, email, password, phone, karma, g
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.article (id, title, content, ratio, creation_date, source, cover_image_url) FROM stdin;
+COPY public.article (id, title, content, ratio, creation_date, source, cover_img_url) FROM stdin;
 5000	article Santé 1	Contenu de l article 1	10	2025-01-10 09:00:00	Le Journal de la Santé	https://example.com/article1.png
 5001	article Santé 2	Contenu de l article 2	5	2025-01-11 09:00:00	Magazine Bien-Être	https://example.com/article2.png
 \.
@@ -750,7 +771,7 @@ COPY public.disease (id, name, description, symptomes, creation_date, modificati
 -- Data for Name: forum; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.forum (id, title, description, image_url, is_archived, creation_date) FROM stdin;
+COPY public.forum (id, title, description, img_url, is_archived, creation_date) FROM stdin;
 1	Présentation & Règles	forum dédié à la présentation et aux règles	https://example.com/forum1.png	f	2025-01-01 09:00:00
 2	Discussions Générales	forum pour tous les sujets généraux	https://example.com/forum2.png	f	2025-01-05 08:00:00
 \.
@@ -811,9 +832,18 @@ COPY public.subscribe (id, creation_date, "accountUuid", "forumId") FROM stdin;
 -- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.thread (id, title, content, image_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
+COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
 100	Première Discussion	Contenu du premier thread	https://example.com/thread1.png	0	f	2025-01-02 15:00:00	2025-01-02 15:10:00	00000000-aaaa-bbbb-cccc-000000000001	1
 101	Deuxième Discussion	Contenu du deuxième thread	\N	5	f	2025-01-06 10:00:00	2025-01-07 09:00:00	00000000-aaaa-bbbb-cccc-000000000002	2
+\.
+
+
+--
+-- Data for Name: token; Type: TABLE DATA; Schema: public; Owner: chronoadmin
+--
+
+COPY public.token (uuid, user_id, expire_at, token, type, created_at, revoked) FROM stdin;
+12ed0488-d3c1-45ac-910c-3fd8efd879db	00000000-aaaa-bbbb-cccc-000000000001	2025-04-10 10:40:54.699361	\N	validation_token	2025-04-10 09:40:54.699361	f
 \.
 
 
@@ -829,7 +859,7 @@ COPY public.vote_reply (id, author_fk, reply_fk, creation_date, vote_type) FROM 
 -- Data for Name: vote_thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_i) FROM stdin;
+COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_id) FROM stdin;
 \.
 
 
@@ -1109,6 +1139,14 @@ ALTER TABLE ONLY public.thread
 
 
 --
+-- Name: token token_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.token
+    ADD CONSTRAINT token_userid_fkey FOREIGN KEY (user_id) REFERENCES public.account(uuid);
+
+
+--
 -- Name: vote_reply vote_reply_author_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
@@ -1122,6 +1160,22 @@ ALTER TABLE ONLY public.vote_reply
 
 ALTER TABLE ONLY public.vote_reply
     ADD CONSTRAINT vote_reply_reply_fk_fkey FOREIGN KEY (reply_fk) REFERENCES public.reply(id);
+
+
+--
+-- Name: vote_thread vote_thread_author_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.vote_thread
+    ADD CONSTRAINT vote_thread_author_uuid_fkey FOREIGN KEY (author_uuid) REFERENCES public.account(uuid);
+
+
+--
+-- Name: vote_thread vote_thread_thread_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+--
+
+ALTER TABLE ONLY public.vote_thread
+    ADD CONSTRAINT vote_thread_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.thread(id);
 
 
 --
