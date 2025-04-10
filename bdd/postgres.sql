@@ -721,146 +721,116 @@ ALTER TABLE ONLY public.vote_thread ALTER COLUMN id SET DEFAULT nextval('public.
 -- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.account (uuid, firstname, lastname, email, password, phone, karma, global_bantime, validated) FROM stdin;
-00000000-aaaa-bbbb-cccc-000000000001	John	Doe	john.doe@example.com	hashed_password_john	+330123456789	10	0	t
-00000000-aaaa-bbbb-cccc-000000000002	Jane	Smith	jane.smith@example.com	hashed_password_jane	+330987654321	5	0	f
-\.
+INSERT INTO public.account VALUES ('00000000-aaaa-bbbb-cccc-000000000001', 'John', 'Doe', 'john.doe@example.com', 'hashed_password_john', '+330123456789', 10, 0, true);
+INSERT INTO public.account VALUES ('00000000-aaaa-bbbb-cccc-000000000002', 'Jane', 'Smith', 'jane.smith@example.com', 'hashed_password_jane', '+330987654321', 5, 0, false);
 
 
 --
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.article (id, title, content, ratio, creation_date, source, cover_img_url) FROM stdin;
-5000	article Santé 1	Contenu de l article 1	10	2025-01-10 09:00:00	Le Journal de la Santé	https://example.com/article1.png
-5001	article Santé 2	Contenu de l article 2	5	2025-01-11 09:00:00	Magazine Bien-Être	https://example.com/article2.png
-\.
+INSERT INTO public.article VALUES (5000, 'article Santé 1', 'Contenu de l article 1', 10, '2025-01-10 09:00:00', 'Le Journal de la Santé', 'https://example.com/article1.png');
+INSERT INTO public.article VALUES (5001, 'article Santé 2', 'Contenu de l article 2', 5, '2025-01-11 09:00:00', 'Magazine Bien-Être', 'https://example.com/article2.png');
 
 
 --
 -- Data for Name: banhammer; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.banhammer (id, account_fk, forum_id, bantime) FROM stdin;
-2000	00000000-aaaa-bbbb-cccc-000000000002	1	2025-01-03 00:00:00
-2001	00000000-aaaa-bbbb-cccc-000000000001	2	2025-01-08 00:00:00
-\.
+INSERT INTO public.banhammer VALUES (2000, '00000000-aaaa-bbbb-cccc-000000000002', 1, '2025-01-03 00:00:00');
+INSERT INTO public.banhammer VALUES (2001, '00000000-aaaa-bbbb-cccc-000000000001', 2, '2025-01-08 00:00:00');
 
 
 --
 -- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.conversation (id, creation_date, author_uuid) FROM stdin;
-3000	2025-01-03 12:00:00	00000000-aaaa-bbbb-cccc-000000000001
-3001	2025-01-05 10:30:00	00000000-aaaa-bbbb-cccc-000000000002
-\.
+INSERT INTO public.conversation VALUES (3000, '2025-01-03 12:00:00', '00000000-aaaa-bbbb-cccc-000000000001');
+INSERT INTO public.conversation VALUES (3001, '2025-01-05 10:30:00', '00000000-aaaa-bbbb-cccc-000000000002');
 
 
 --
 -- Data for Name: disease; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.disease (id, name, description, symptomes, creation_date, modification_date) FROM stdin;
-6000	Grippe	Maladie virale saisonnière	Fièvre, toux, courbatures	2025-01-12 10:00:00	\N
-6001	Rhume	Infection virale bénigne	Écoulement nasal, éternuements	2025-01-13 14:00:00	2025-01-14 09:00:00
-\.
+INSERT INTO public.disease VALUES (6000, 'Grippe', 'Maladie virale saisonnière', 'Fièvre, toux, courbatures', '2025-01-12 10:00:00', NULL);
+INSERT INTO public.disease VALUES (6001, 'Rhume', 'Infection virale bénigne', 'Écoulement nasal, éternuements', '2025-01-13 14:00:00', '2025-01-14 09:00:00');
 
 
 --
 -- Data for Name: forum; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.forum (id, title, description, img_url, is_archived, creation_date) FROM stdin;
-1	Présentation & Règles	forum dédié à la présentation et aux règles	https://example.com/forum1.png	f	2025-01-01 09:00:00
-2	Discussions Générales	forum pour tous les sujets généraux	https://example.com/forum2.png	f	2025-01-05 08:00:00
-\.
+INSERT INTO public.forum VALUES (1, 'Présentation & Règles', 'forum dédié à la présentation et aux règles', 'https://example.com/forum1.png', false, '2025-01-01 09:00:00');
+INSERT INTO public.forum VALUES (2, 'Discussions Générales', 'forum pour tous les sujets généraux', 'https://example.com/forum2.png', false, '2025-01-05 08:00:00');
 
 
 --
 -- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public."group" (id, name, forum_id) FROM stdin;
-7000	Modérateurs	1
-7001	Utilisateurs VIP	2
-\.
+INSERT INTO public."group" VALUES (7000, 'Modérateurs', 1);
+INSERT INTO public."group" VALUES (7001, 'Utilisateurs VIP', 2);
 
 
 --
 -- Data for Name: privatemessage; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.privatemessage (id, message, creation_date, modification_date, author_uuid, recipient_fk, conversation_fk) FROM stdin;
-4000	Salut, comment vas-tu ?	2025-01-03 12:05:00	\N	00000000-aaaa-bbbb-cccc-000000000001	00000000-aaaa-bbbb-cccc-000000000002	3000
-4001	Je vais bien merci !	2025-01-03 12:10:00	2025-01-03 12:15:00	00000000-aaaa-bbbb-cccc-000000000002	00000000-aaaa-bbbb-cccc-000000000001	3000
-4002	Petite question importante...	2025-01-05 10:35:00	\N	00000000-aaaa-bbbb-cccc-000000000002	00000000-aaaa-bbbb-cccc-000000000001	3001
-\.
+INSERT INTO public.privatemessage VALUES (4000, 'Salut, comment vas-tu ?', '2025-01-03 12:05:00', NULL, '00000000-aaaa-bbbb-cccc-000000000001', '00000000-aaaa-bbbb-cccc-000000000002', 3000);
+INSERT INTO public.privatemessage VALUES (4001, 'Je vais bien merci !', '2025-01-03 12:10:00', '2025-01-03 12:15:00', '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3000);
+INSERT INTO public.privatemessage VALUES (4002, 'Petite question importante...', '2025-01-05 10:35:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3001);
 
 
 --
 -- Data for Name: reply; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.reply (id, content, ratio, creation_date, modification_date, author_uuid, thread_fk, response_to_fk) FROM stdin;
-1000	Premier post du thread 100	2	2025-01-02 15:05:00	2025-01-02 15:10:00	00000000-aaaa-bbbb-cccc-000000000002	100	\N
-1001	Réponse au post 1000	1	2025-01-02 15:20:00	2025-01-02 15:25:00	00000000-aaaa-bbbb-cccc-000000000001	100	1000
-1002	Premier post du thread 101	3	2025-01-07 11:00:00	\N	00000000-aaaa-bbbb-cccc-000000000002	101	\N
-\.
+INSERT INTO public.reply VALUES (1000, 'Premier post du thread 100', 2, '2025-01-02 15:05:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000002', 100, NULL);
+INSERT INTO public.reply VALUES (1001, 'Réponse au post 1000', 1, '2025-01-02 15:20:00', '2025-01-02 15:25:00', '00000000-aaaa-bbbb-cccc-000000000001', 100, 1000);
+INSERT INTO public.reply VALUES (1002, 'Premier post du thread 101', 3, '2025-01-07 11:00:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', 101, NULL);
 
 
 --
 -- Data for Name: right; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public."right" (id, name) FROM stdin;
-8000	MODERATE_forum
-8001	CREATE_thread
-8002	BAN_user
-\.
+INSERT INTO public."right" VALUES (8000, 'MODERATE_forum');
+INSERT INTO public."right" VALUES (8001, 'CREATE_thread');
+INSERT INTO public."right" VALUES (8002, 'BAN_user');
 
 
 --
 -- Data for Name: subscribe; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.subscribe (id, creation_date, "accountUuid", "forumId") FROM stdin;
-\.
 
 
 --
 -- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.thread (id, title, content, img_url, ratio, is_archived, creation_date, modification_date, author_uuid, forum_id) FROM stdin;
-100	Première Discussion	Contenu du premier thread	https://example.com/thread1.png	0	f	2025-01-02 15:00:00	2025-01-02 15:10:00	00000000-aaaa-bbbb-cccc-000000000001	1
-101	Deuxième Discussion	Contenu du deuxième thread	\N	5	f	2025-01-06 10:00:00	2025-01-07 09:00:00	00000000-aaaa-bbbb-cccc-000000000002	2
-\.
+INSERT INTO public.thread VALUES (100, 'Première Discussion', 'Contenu du premier thread', 'https://example.com/thread1.png', 0, false, '2025-01-02 15:00:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000001', 1);
+INSERT INTO public.thread VALUES (101, 'Deuxième Discussion', 'Contenu du deuxième thread', NULL, 5, false, '2025-01-06 10:00:00', '2025-01-07 09:00:00', '00000000-aaaa-bbbb-cccc-000000000002', 2);
 
 
 --
 -- Data for Name: token; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.token (uuid, user_id, expire_at, token, type, created_at, revoked) FROM stdin;
-12ed0488-d3c1-45ac-910c-3fd8efd879db	00000000-aaaa-bbbb-cccc-000000000001	2025-04-10 10:40:54.699361	\N	validation_token	2025-04-10 09:40:54.699361	f
-\.
+INSERT INTO public.token VALUES ('12ed0488-d3c1-45ac-910c-3fd8efd879db', '00000000-aaaa-bbbb-cccc-000000000001', '2025-04-10 10:40:54.699361', NULL, 'validation_token', '2025-04-10 09:40:54.699361', false);
 
 
 --
 -- Data for Name: vote_reply; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.vote_reply (id, author_fk, reply_fk, creation_date, vote_type) FROM stdin;
-\.
 
 
 --
 -- Data for Name: vote_thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-COPY public.vote_thread (id, vote_type, creation_date, author_uuid, thread_id) FROM stdin;
-\.
 
 
 --
