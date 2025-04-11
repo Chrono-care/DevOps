@@ -132,7 +132,7 @@ CREATE TABLE public.article (
     title character varying(255) NOT NULL,
     content text,
     ratio integer DEFAULT 0,
-    creation_date timestamp without time zone,
+    created_at timestamp without time zone,
     source character varying(255),
     cover_img_url character varying(255)
 );
@@ -204,7 +204,7 @@ ALTER SEQUENCE public.banhammer_id_seq OWNED BY public.banhammer.id;
 
 CREATE TABLE public.conversation (
     id integer NOT NULL,
-    creation_date timestamp without time zone,
+    created_at timestamp without time zone,
     author_uuid uuid
 );
 
@@ -242,8 +242,8 @@ CREATE TABLE public.disease (
     name character varying(255) NOT NULL,
     description text,
     symptomes text,
-    creation_date timestamp without time zone,
-    modification_date timestamp without time zone
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -281,7 +281,7 @@ CREATE TABLE public.forum (
     description text,
     img_url character varying(255),
     is_archived boolean DEFAULT false NOT NULL,
-    creation_date timestamp without time zone DEFAULT now() NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -351,8 +351,8 @@ ALTER SEQUENCE public.group_id_seq OWNED BY public."group".id;
 CREATE TABLE public.privatemessage (
     id integer NOT NULL,
     message text NOT NULL,
-    creation_date timestamp without time zone,
-    modification_date timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     author_uuid uuid,
     recipient_fk uuid,
     conversation_fk integer
@@ -391,8 +391,8 @@ CREATE TABLE public.reply (
     id integer NOT NULL,
     content text NOT NULL,
     ratio integer DEFAULT 0,
-    creation_date timestamp without time zone,
-    modification_date timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     author_uuid uuid,
     thread_fk integer,
     response_to_fk integer
@@ -463,7 +463,7 @@ ALTER SEQUENCE public.right_id_seq OWNED BY public."right".id;
 
 CREATE TABLE public.subscribe (
     id integer NOT NULL,
-    creation_date timestamp without time zone DEFAULT now() NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
     "accountUuid" uuid,
     "forumId" integer
 );
@@ -504,8 +504,8 @@ CREATE TABLE public.thread (
     img_url character varying(255),
     ratio integer DEFAULT 0,
     is_archived boolean DEFAULT false NOT NULL,
-    creation_date timestamp without time zone,
-    modification_date timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     author_uuid uuid,
     forum_id integer
 );
@@ -560,7 +560,7 @@ CREATE TABLE public.vote_reply (
     id integer NOT NULL,
     author_fk uuid NOT NULL,
     reply_fk integer NOT NULL,
-    creation_date timestamp without time zone DEFAULT now() NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
     vote_type boolean NOT NULL
 );
 
@@ -596,7 +596,7 @@ ALTER SEQUENCE public.vote_reply_id_seq OWNED BY public.vote_reply.id;
 CREATE TABLE public.vote_thread (
     id integer NOT NULL,
     vote_type boolean NOT NULL,
-    creation_date timestamp without time zone DEFAULT now() NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
     author_uuid uuid NOT NULL,
     thread_id integer NOT NULL
 );

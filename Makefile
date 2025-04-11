@@ -54,7 +54,7 @@ drop-dev-database: down
 drop-prod-database: down
 	docker volume rm app_postgres-prod-data
 
-log-database: 
+log-database:
 	docker logs devops-postgres-dev
 
 nique: down
