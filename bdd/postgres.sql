@@ -18,7 +18,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 ALTER TABLE IF EXISTS ONLY public.vote_thread DROP CONSTRAINT IF EXISTS vote_thread_thread_id_fkey;
-ALTER TABLE IF EXISTS ONLY public.vote_thread DROP CONSTRAINT IF EXISTS vote_thread_author_uuid_fkey;
+ALTER TABLE IF EXISTS ONLY public.vote_thread DROP CONSTRAINT IF EXISTS vote_thread_author_fkey;
 ALTER TABLE IF EXISTS ONLY public.vote_reply DROP CONSTRAINT IF EXISTS vote_reply_reply_fk_fkey;
 ALTER TABLE IF EXISTS ONLY public.vote_reply DROP CONSTRAINT IF EXISTS vote_reply_author_fk_fkey;
 ALTER TABLE IF EXISTS ONLY public.token DROP CONSTRAINT IF EXISTS token_userid_fkey;
@@ -206,7 +206,7 @@ ALTER SEQUENCE public.banhammer_id_seq OWNED BY public.banhammer.id;
 CREATE TABLE public.conversation (
     id integer NOT NULL,
     created_at timestamp without time zone,
-    author_uuid uuid
+    author uuid
 );
 
 
@@ -354,7 +354,7 @@ CREATE TABLE public.privatemessage (
     message text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    author_uuid uuid,
+    author uuid,
     recipient_fk uuid,
     conversation_fk integer
 );
@@ -394,7 +394,7 @@ CREATE TABLE public.reply (
     ratio integer DEFAULT 0,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    author_uuid uuid,
+    author uuid,
     thread_fk integer,
     response_to_fk integer
 );
@@ -507,7 +507,7 @@ CREATE TABLE public.thread (
     is_archived boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    author_uuid uuid,
+    author uuid,
     forum_id integer
 );
 
@@ -598,7 +598,7 @@ CREATE TABLE public.vote_thread (
     id integer NOT NULL,
     vote_type boolean NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    author_uuid uuid NOT NULL,
+    author uuid NOT NULL,
     thread_id integer NOT NULL
 );
 
@@ -1034,7 +1034,7 @@ ALTER TABLE ONLY public.banhammer
 --
 
 ALTER TABLE ONLY public.conversation
-    ADD CONSTRAINT fk_conversation_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+    ADD CONSTRAINT fk_conversation_author FOREIGN KEY (author) REFERENCES public.account(uuid) ON DELETE SET NULL;
 
 
 --
@@ -1050,7 +1050,7 @@ ALTER TABLE ONLY public."group"
 --
 
 ALTER TABLE ONLY public.privatemessage
-    ADD CONSTRAINT fk_pm_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+    ADD CONSTRAINT fk_pm_author FOREIGN KEY (author) REFERENCES public.account(uuid) ON DELETE SET NULL;
 
 
 --
@@ -1074,7 +1074,7 @@ ALTER TABLE ONLY public.privatemessage
 --
 
 ALTER TABLE ONLY public.reply
-    ADD CONSTRAINT fk_post_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+    ADD CONSTRAINT fk_post_author FOREIGN KEY (author) REFERENCES public.account(uuid) ON DELETE SET NULL;
 
 
 --
@@ -1098,7 +1098,7 @@ ALTER TABLE ONLY public.reply
 --
 
 ALTER TABLE ONLY public.thread
-    ADD CONSTRAINT fk_thread_author FOREIGN KEY (author_uuid) REFERENCES public.account(uuid) ON DELETE SET NULL;
+    ADD CONSTRAINT fk_thread_author FOREIGN KEY (author) REFERENCES public.account(uuid) ON DELETE SET NULL;
 
 
 --
@@ -1134,11 +1134,11 @@ ALTER TABLE ONLY public.vote_reply
 
 
 --
--- Name: vote_thread vote_thread_author_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
+-- Name: vote_thread vote_thread_author_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chronoadmin
 --
 
 ALTER TABLE ONLY public.vote_thread
-    ADD CONSTRAINT vote_thread_author_uuid_fkey FOREIGN KEY (author_uuid) REFERENCES public.account(uuid);
+    ADD CONSTRAINT vote_thread_author_fkey FOREIGN KEY (author) REFERENCES public.account(uuid);
 
 
 --
