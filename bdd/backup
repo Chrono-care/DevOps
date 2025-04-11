@@ -838,63 +838,63 @@ INSERT INTO public.token VALUES ('12ed0488-d3c1-45ac-910c-3fd8efd879db', '000000
 -- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.article_id_seq', 5002, false);
+SELECT pg_catalog.setval('public.article_id_seq', 5001, false);
 
 
 --
 -- Name: banhammer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.banhammer_id_seq', 2002, false);
+SELECT pg_catalog.setval('public.banhammer_id_seq', 2001, false);
 
 
 --
 -- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.conversation_id_seq', 3002, false);
+SELECT pg_catalog.setval('public.conversation_id_seq', 3001, false);
 
 
 --
 -- Name: disease_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.disease_id_seq', 6002, false);
+SELECT pg_catalog.setval('public.disease_id_seq', 6001, false);
 
 
 --
 -- Name: forum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.forum_id_seq', 3, true);
+SELECT pg_catalog.setval('public.forum_id_seq', 4, false);
 
 
 --
 -- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.group_id_seq', 7002, false);
+SELECT pg_catalog.setval('public.group_id_seq', 7001, false);
 
 
 --
 -- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.privatemessage_id_seq', 4003, false);
+SELECT pg_catalog.setval('public.privatemessage_id_seq', 4002, false);
 
 
 --
 -- Name: reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.reply_id_seq', 1003, false);
+SELECT pg_catalog.setval('public.reply_id_seq', 1002, false);
 
 
 --
 -- Name: right_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.right_id_seq', 8003, false);
+SELECT pg_catalog.setval('public.right_id_seq', 8002, false);
 
 
 --
@@ -908,7 +908,7 @@ SELECT pg_catalog.setval('public.subscribe_id_seq', 1, false);
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq', 102, false);
+SELECT pg_catalog.setval('public.thread_id_seq', 101, false);
 
 
 --
@@ -1154,16 +1154,16 @@ ALTER TABLE ONLY public.vote_thread
 --
 
 -- GENERATED WITH NODEJS SCRIPT
-select setval('public.article_id_seq', coalesce((select max(id)+1 from public.article),1),false);
-select setval('public.banhammer_id_seq', coalesce((select max(id)+1 from public.banhammer),1),false);
-select setval('public.conversation_id_seq', coalesce((select max(id)+1 from public.conversation),1),false);
-select setval('public.disease_id_seq', coalesce((select max(id)+1 from public.disease),1),false);
-select setval('public.forum_id_seq', coalesce((select max(id)+1 from public.forum),1),false);
-select setval('public.group_id_seq', coalesce((select max(id)+1 from public.group),1),false);
-select setval('public.privatemessage_id_seq', coalesce((select max(id)+1 from public.privatemessage),1),false);
-select setval('public.reply_id_seq', coalesce((select max(id)+1 from public.reply),1),false);
-select setval('public.right_id_seq', coalesce((select max(id)+1 from public.right),1),false);
-select setval('public.subscribe_id_seq', coalesce((select max(id)+1 from public.subscribe),1),false);
-select setval('public.thread_id_seq', coalesce((select max(id)+1 from public.thread),1),false);
-select setval('public.vote_reply_id_seq', coalesce((select max(id)+1 from public.vote_reply),1),false);
-select setval('public.vote_thread_id_seq', coalesce((select max(id)+1 from public.vote_thread),1),false);
+-- select setval('article_id_seq', coalesce((select max(id)+1 from public.article),1),false);
+-- select setval('banhammer_id_seq', coalesce((select max(id)+1 from public.banhammer),1),false);
+-- select setval('conversation_id_seq', coalesce((select max(id)+1 from public.conversation),1),false);
+-- select setval('disease_id_seq', coalesce((select max(id)+1 from public.disease),1),false);
+-- select setval('forum_id_seq', coalesce((select max(id)+1 from public.forum),1),false);
+-- select setval('group_id_seq', coalesce((select max(id)+1 from public.group),1),false);
+-- select setval('privatemessage_id_seq', coalesce((select max(id)+1 from public.privatemessage),1),false);
+-- select setval('reply_id_seq', coalesce((select max(id)+1 from public.reply),1),false);
+-- select setval('right_id_seq', coalesce((select max(id)+1 from public.right),1),false);
+-- select setval('subscribe_id_seq', coalesce((select max(id)+1 from public.subscribe),1),false);
+-- select setval('thread_id_seq', coalesce((select max(id)+1 from public.thread),1),false);
+-- select setval('vote_reply_id_seq', coalesce((select max(id)+1 from public.vote_reply),1),false);
+-- select setval('vote_thread_id_seq', coalesce((select max(id)+1 from public.vote_thread),1),false);
