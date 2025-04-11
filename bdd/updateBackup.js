@@ -5,7 +5,7 @@ const fs = require("fs")
 
 // CONSTANT DECLARATION
 const BDD_FILE = "bdd/postgres.sql"
-const COMMAND = `select setval('<sequence>', coalesce((select max(id)+1 from <table>),1),false);`
+const COMMAND = `select setval('public.<sequence>', coalesce((select max(id)+1 from public.<table>),1),false);`
 const BACKLINE = new RegExp("\r\n|\r|\n","g")
 const SEQUENCE_REGEX = new RegExp("_id_seq")
 
