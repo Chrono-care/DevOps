@@ -47,6 +47,7 @@ start-prod-logs: create-network
 
 dump-database:
 	docker exec -it devops-postgres-dev pg_dump -U chronoadmin --inserts -c --if-exists chronocare > bdd/postgres.sql
+	node bdd/updateBackup.js
 
 drop-dev-database: down
 	docker volume rm app_postgres-dev-data
@@ -59,3 +60,6 @@ log-database:
 
 nique: down
 	bash purge.sh
+
+attach-database:
+	docker exec -it devops-postgres-dev psql -U chronoadmin chronocare

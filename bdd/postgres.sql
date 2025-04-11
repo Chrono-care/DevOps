@@ -2,12 +2,13 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.19 (Debian 13.19-1.pgdg120+1)
--- Dumped by pg_dump version 13.19 (Debian 13.19-1.pgdg120+1)
+-- Dumped from database version 17.4 (Debian 17.4-1.pgdg120+2)
+-- Dumped by pg_dump version 17.4 (Debian 17.4-1.pgdg120+2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -153,7 +154,7 @@ CREATE SEQUENCE public.article_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.article_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.article_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: article_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -189,7 +190,7 @@ CREATE SEQUENCE public.banhammer_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.banhammer_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.banhammer_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: banhammer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -224,7 +225,7 @@ CREATE SEQUENCE public.conversation_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.conversation_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.conversation_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: conversation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -262,7 +263,7 @@ CREATE SEQUENCE public.disease_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.disease_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.disease_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: disease_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -300,7 +301,7 @@ CREATE SEQUENCE public.forum_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.forum_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.forum_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: forum_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -335,7 +336,7 @@ CREATE SEQUENCE public.group_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.group_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.group_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -374,7 +375,7 @@ CREATE SEQUENCE public.privatemessage_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.privatemessage_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.privatemessage_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: privatemessage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -414,7 +415,7 @@ CREATE SEQUENCE public.reply_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.reply_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.reply_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -448,7 +449,7 @@ CREATE SEQUENCE public.right_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.right_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.right_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: right_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -484,7 +485,7 @@ CREATE SEQUENCE public.subscribe_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.subscribe_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.subscribe_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: subscribe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -526,7 +527,7 @@ CREATE SEQUENCE public.thread_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.thread_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.thread_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -580,7 +581,7 @@ CREATE SEQUENCE public.vote_reply_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.vote_reply_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.vote_reply_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: vote_reply_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -617,7 +618,7 @@ CREATE SEQUENCE public.vote_thread_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.vote_thread_id_seq OWNER TO chronoadmin;
+ALTER SEQUENCE public.vote_thread_id_seq OWNER TO chronoadmin;
 
 --
 -- Name: vote_thread_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chronoadmin
@@ -837,91 +838,91 @@ INSERT INTO public.token VALUES ('12ed0488-d3c1-45ac-910c-3fd8efd879db', '000000
 -- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.article_id_seq',(select max(id) from public.article), false);
+SELECT pg_catalog.setval('public.article_id_seq', 5001, false);
 
 
 --
 -- Name: banhammer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.banhammer_id_seq',(select max(id) from public.banhammer), false);
+SELECT pg_catalog.setval('public.banhammer_id_seq', 2001, false);
 
 
 --
 -- Name: conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.conversation_id_seq',(select max(id) from public.conversation), false);
+SELECT pg_catalog.setval('public.conversation_id_seq', 3001, false);
 
 
 --
 -- Name: disease_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.disease_id_seq',(select max(id) from public.disease), false);
+SELECT pg_catalog.setval('public.disease_id_seq', 6001, false);
 
 
 --
 -- Name: forum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.forum_id_seq',(select max(id) from public.forum), false);
+SELECT pg_catalog.setval('public.forum_id_seq', 4, false);
 
 
 --
 -- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.group_id_seq',(select max(id) from public.group), false);
+SELECT pg_catalog.setval('public.group_id_seq', 7001, false);
 
 
 --
 -- Name: privatemessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.privatemessage_id_seq',(select max(id) from public.privatemessage), false);
+SELECT pg_catalog.setval('public.privatemessage_id_seq', 4002, false);
 
 
 --
 -- Name: reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.reply_id_seq',(select max(id) from public.reply), false);
+SELECT pg_catalog.setval('public.reply_id_seq', 1002, false);
 
 
 --
 -- Name: right_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.right_id_seq',(select max(id) from public.right), false);
+SELECT pg_catalog.setval('public.right_id_seq', 8002, false);
 
 
 --
 -- Name: subscribe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.subscribe_id_seq',(select max(id) from public.subscribe), false);
+SELECT pg_catalog.setval('public.subscribe_id_seq', 1, false);
 
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq',(select max(id) from public.thread), false);
+SELECT pg_catalog.setval('public.thread_id_seq', 101, false);
 
 
 --
 -- Name: vote_reply_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.vote_reply_id_seq',(select max(id) from public.vote_reply), false);
+SELECT pg_catalog.setval('public.vote_reply_id_seq', 1, false);
 
 
 --
 -- Name: vote_thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chronoadmin
 --
 
-SELECT pg_catalog.setval('public.vote_thread_id_seq',(select max(id) from public.vote_thread), false);
+SELECT pg_catalog.setval('public.vote_thread_id_seq', 1, false);
 
 
 --
@@ -1151,3 +1152,18 @@ ALTER TABLE ONLY public.vote_thread
 --
 -- PostgreSQL database dump complete
 --
+
+-- GENERATED WITH NODEJS SCRIPT
+select setval('article_id_seq', coalesce((select max(id)+1 from public.article),1),false);
+select setval('banhammer_id_seq', coalesce((select max(id)+1 from public.banhammer),1),false);
+select setval('conversation_id_seq', coalesce((select max(id)+1 from public.conversation),1),false);
+select setval('disease_id_seq', coalesce((select max(id)+1 from public.disease),1),false);
+select setval('forum_id_seq', coalesce((select max(id)+1 from public.forum),1),false);
+select setval('group_id_seq', coalesce((select max(id)+1 from public.group),1),false);
+select setval('privatemessage_id_seq', coalesce((select max(id)+1 from public.privatemessage),1),false);
+select setval('reply_id_seq', coalesce((select max(id)+1 from public.reply),1),false);
+select setval('right_id_seq', coalesce((select max(id)+1 from public.right),1),false);
+select setval('subscribe_id_seq', coalesce((select max(id)+1 from public.subscribe),1),false);
+select setval('thread_id_seq', coalesce((select max(id)+1 from public.thread),1),false);
+select setval('vote_reply_id_seq', coalesce((select max(id)+1 from public.vote_reply),1),false);
+select setval('vote_thread_id_seq', coalesce((select max(id)+1 from public.vote_thread),1),false);
