@@ -731,32 +731,32 @@ INSERT INTO public.account VALUES ('00000000-aaaa-bbbb-cccc-000000000002', 'Jane
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.article VALUES (5000, 'article Santé 1', 'Contenu de l article 1', 10, '2025-01-10 09:00:00', 'Le Journal de la Santé', 'https://example.com/article1.png');
-INSERT INTO public.article VALUES (5001, 'article Santé 2', 'Contenu de l article 2', 5, '2025-01-11 09:00:00', 'Magazine Bien-Être', 'https://example.com/article2.png');
+INSERT INTO public.article VALUES (1, 'article Santé 1', 'Contenu de l article 1', 10, '2025-01-10 09:00:00', 'Le Journal de la Santé', 'https://example.com/article1.png');
+INSERT INTO public.article VALUES (2, 'article Santé 2', 'Contenu de l article 2', 5, '2025-01-11 09:00:00', 'Magazine Bien-Être', 'https://example.com/article2.png');
 
 
 --
 -- Data for Name: banhammer; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.banhammer VALUES (2000, '00000000-aaaa-bbbb-cccc-000000000002', 1, '2025-01-03 00:00:00');
-INSERT INTO public.banhammer VALUES (2001, '00000000-aaaa-bbbb-cccc-000000000001', 2, '2025-01-08 00:00:00');
+INSERT INTO public.banhammer VALUES (1, '00000000-aaaa-bbbb-cccc-000000000002', 1, '2025-01-03 00:00:00');
+INSERT INTO public.banhammer VALUES (2, '00000000-aaaa-bbbb-cccc-000000000001', 2, '2025-01-08 00:00:00');
 
 
 --
 -- Data for Name: conversation; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.conversation VALUES (3000, '2025-01-03 12:00:00', '00000000-aaaa-bbbb-cccc-000000000001');
-INSERT INTO public.conversation VALUES (3001, '2025-01-05 10:30:00', '00000000-aaaa-bbbb-cccc-000000000002');
+INSERT INTO public.conversation VALUES (1, '2025-01-03 12:00:00', '00000000-aaaa-bbbb-cccc-000000000001');
+INSERT INTO public.conversation VALUES (2, '2025-01-05 10:30:00', '00000000-aaaa-bbbb-cccc-000000000002');
 
 
 --
 -- Data for Name: disease; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.disease VALUES (6000, 'Grippe', 'Maladie virale saisonnière', 'Fièvre, toux, courbatures', '2025-01-12 10:00:00', NULL);
-INSERT INTO public.disease VALUES (6001, 'Rhume', 'Infection virale bénigne', 'Écoulement nasal, éternuements', '2025-01-13 14:00:00', '2025-01-14 09:00:00');
+INSERT INTO public.disease VALUES (1, 'Grippe', 'Maladie virale saisonnière', 'Fièvre, toux, courbatures', '2025-01-12 10:00:00', NULL);
+INSERT INTO public.disease VALUES (2, 'Rhume', 'Infection virale bénigne', 'Écoulement nasal, éternuements', '2025-01-13 14:00:00', '2025-01-14 09:00:00');
 
 
 --
@@ -771,35 +771,35 @@ INSERT INTO public.forum VALUES (2, 'Discussions Générales', 'forum pour tous 
 -- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public."group" VALUES (7000, 'Modérateurs', 1);
-INSERT INTO public."group" VALUES (7001, 'Utilisateurs VIP', 2);
+INSERT INTO public."group" VALUES (1, 'Modérateurs', 1);
+INSERT INTO public."group" VALUES (2, 'Utilisateurs VIP', 2);
 
 
 --
 -- Data for Name: privatemessage; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.privatemessage VALUES (4000, 'Salut, comment vas-tu ?', '2025-01-03 12:05:00', NULL, '00000000-aaaa-bbbb-cccc-000000000001', '00000000-aaaa-bbbb-cccc-000000000002', 3000);
-INSERT INTO public.privatemessage VALUES (4001, 'Je vais bien merci !', '2025-01-03 12:10:00', '2025-01-03 12:15:00', '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3000);
-INSERT INTO public.privatemessage VALUES (4002, 'Petite question importante...', '2025-01-05 10:35:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3001);
+INSERT INTO public.privatemessage VALUES (1, 'Salut, comment vas-tu ?', '2025-01-03 12:05:00', NULL, '00000000-aaaa-bbbb-cccc-000000000001', '00000000-aaaa-bbbb-cccc-000000000002', 3000);
+INSERT INTO public.privatemessage VALUES (2, 'Je vais bien merci !', '2025-01-03 12:10:00', '2025-01-03 12:15:00', '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3000);
+INSERT INTO public.privatemessage VALUES (3, 'Petite question importante...', '2025-01-05 10:35:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', '00000000-aaaa-bbbb-cccc-000000000001', 3001);
 
 
 --
 -- Data for Name: reply; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.reply VALUES (1000, 'Premier post du thread 100', 2, '2025-01-02 15:05:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000002', 100, NULL);
-INSERT INTO public.reply VALUES (1001, 'Réponse au post 1000', 1, '2025-01-02 15:20:00', '2025-01-02 15:25:00', '00000000-aaaa-bbbb-cccc-000000000001', 100, 1000);
-INSERT INTO public.reply VALUES (1002, 'Premier post du thread 101', 3, '2025-01-07 11:00:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', 101, NULL);
+INSERT INTO public.reply VALUES (1, 'Premier post du thread 100', 2, '2025-01-02 15:05:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000002', 100, NULL);
+INSERT INTO public.reply VALUES (2, 'Réponse au post 1000', 1, '2025-01-02 15:20:00', '2025-01-02 15:25:00', '00000000-aaaa-bbbb-cccc-000000000001', 100, 1000);
+INSERT INTO public.reply VALUES (3, 'Premier post du thread 101', 3, '2025-01-07 11:00:00', NULL, '00000000-aaaa-bbbb-cccc-000000000002', 101, NULL);
 
 
 --
 -- Data for Name: right; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public."right" VALUES (8000, 'MODERATE_forum');
-INSERT INTO public."right" VALUES (8001, 'CREATE_thread');
-INSERT INTO public."right" VALUES (8002, 'BAN_user');
+INSERT INTO public."right" VALUES (1, 'MODERATE_forum');
+INSERT INTO public."right" VALUES (2, 'CREATE_thread');
+INSERT INTO public."right" VALUES (3, 'BAN_user');
 
 
 --
@@ -812,8 +812,8 @@ INSERT INTO public."right" VALUES (8002, 'BAN_user');
 -- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: chronoadmin
 --
 
-INSERT INTO public.thread VALUES (100, 'Première Discussion', 'Contenu du premier thread', 'https://example.com/thread1.png', 0, false, '2025-01-02 15:00:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000001', 1);
-INSERT INTO public.thread VALUES (101, 'Deuxième Discussion', 'Contenu du deuxième thread', NULL, 5, false, '2025-01-06 10:00:00', '2025-01-07 09:00:00', '00000000-aaaa-bbbb-cccc-000000000002', 2);
+INSERT INTO public.thread VALUES (1, 'Première Discussion', 'Contenu du premier thread', 'https://example.com/thread1.png', 0, false, '2025-01-02 15:00:00', '2025-01-02 15:10:00', '00000000-aaaa-bbbb-cccc-000000000001', 1);
+INSERT INTO public.thread VALUES (2, 'Deuxième Discussion', 'Contenu du deuxième thread', NULL, 5, false, '2025-01-06 10:00:00', '2025-01-07 09:00:00', '00000000-aaaa-bbbb-cccc-000000000002', 2);
 
 
 --
